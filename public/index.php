@@ -6,6 +6,16 @@
     <title>Projecte Cantina</title>
 </head>
 <body>
-    <h1>Hola</h1>
+<?php 
+include '../includes/header.php';
+?>
+
+<main>
+    <img src="../static/media/Almuerzo saludable en la cafetería escolar.png" alt="Hero Cantina">
+</main>
+
+<?php 
+include '../includes/footer.php'; 
+?>
 </body>
 </html>

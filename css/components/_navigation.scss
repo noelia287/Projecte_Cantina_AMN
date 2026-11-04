@@ -1,0 +1,112 @@
+@use '../abstracts' as *;
+
+/* Component Navegació */
+.nav {
+
+    // Elements interns
+    &__list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__item {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    &__link {
+        display: block;
+        font-family: $font-body;
+        font-size: $font-size-base;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: $color-text-dark;
+    }
+
+    /* Variant Header */
+    &--header {
+        display: none; // Amagat per defecte en mòbil
+
+        .nav__list {
+            display: flex;
+            flex-direction: column; 
+
+        }
+
+        .nav__item {
+            height: 30px;
+        }
+
+        .nav__link {
+            padding: 0 14px;
+            line-height: 28px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+
+            &:hover {
+                color: $color-primary;
+            }
+
+            /* Enllaç de la pàgina actual  */
+            &--active {
+                width: 82px;
+                padding: 0;
+                margin-right: 9px;
+                text-align: center;
+                color: $color-white;
+                border-color: $color-nav-active-border;
+                background: $gradient-nav-active;
+
+                &:hover {
+                    color: $color-white;
+                }
+            }
+        }
+
+        /* A partir de tablet es mostra en fila */
+        @media (min-width: 768px) {
+            display: block;
+
+            .nav__list {
+                flex-direction: row; 
+            }
+        }
+    }
+
+    /* Variant Footer */
+    &--footer {
+        align-self: center;
+
+        .nav__list {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .nav__item {
+            display: flex;
+
+            /* Separador "|" entre enllaços */
+            & + .nav__item::before {
+                content: '|';
+                margin: 0 10px;
+                color: $color-text;
+            }
+        }
+
+        .nav__link {
+            text-transform: none;
+            color: $color-text;
+
+            &:hover {
+                color: $color-primary;
+            }
+
+            /* Enllaç de la pàgina actual */
+            &--active {
+                color: $color-text-dark;
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+/* Sidebar: Subscribe i Follow us */
+.sidebar {
+  h2 {
+    padding-left: 3px;
+    font-size: 19px;
+  }
+
+  .form + h2 {
+    margin-top: 22px;
+  }
+
+  // Icones de xarxes socials
+  &__social {
+    display: flex;
+    gap: 27.5px;
+    margin: 11px 0 0 3px;
+  }
+
+  &__social img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.sidebar .btn {
+  margin-left: 1px;
+}

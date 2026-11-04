@@ -1,0 +1,46 @@
+@use '../abstracts' as *;
+
+/* Estils generals de tota la pàgina */
+body {
+    font-family: $font-body;
+    font-size: $font-size-base;
+    line-height: 18px;
+    color: $color-text;
+    background: $bg-color $gradient-body no-repeat;
+    min-height: 100vh;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $font-title;
+    font-weight: normal;
+}
+
+h1 {
+    font-size: 27px;
+    line-height: 31px;
+    text-transform: uppercase;
+    color: $color-title;
+}
+
+h2 {
+    font-size: 22px;
+    line-height: 26px;
+    color: $color-primary;
+    padding-bottom: 3px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid $border-color;
+}
+
+h3 {
+    font-size: 13px;
+}
+
+p {
+    margin-bottom: 18px;
+}

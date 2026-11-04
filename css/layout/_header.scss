@@ -1,0 +1,17 @@
+/* Header: logo a l'esquerra i menú a la dreta */
+.header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 'logo nav';
+    align-items: start;
+    padding: 18px 4px 17px 0;
+
+    .logo {
+        grid-area: logo;
+    }
+
+    .nav--header {
+        grid-area: nav;
+        margin-top: 11px;
+    }
+}

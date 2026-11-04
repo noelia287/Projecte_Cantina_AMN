@@ -1,0 +1,120 @@
+@use '../abstracts' as *;
+
+// grid general de la pagina (12 columnes)
+
+.page {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    column-gap: 19px;
+    row-gap: 20px;
+    width: 100%;
+    max-width: $page-max-width; // ample màxim 1240px
+    margin: 0 auto;
+    padding: 0 $page-padding;
+    grid-template-areas:
+        'header header header header header header header header header header header header'
+        'hero hero hero hero hero hero hero hero hero hero hero hero'
+        'card1 card1 card1 card1 card2 card2 card2 card2 card3 card3 card3 card3'
+        'welcome welcome welcome welcome welcome welcome welcome welcome sidebar sidebar sidebar sidebar'
+        'footer footer footer footer footer footer footer footer footer footer footer footer';
+}
+
+/* Cada bloc a la seva àrea del grid */
+.header {
+    grid-area: header;
+    min-width: 0;
+}
+
+.hero {
+    grid-area: hero;
+    min-width: 0;
+}
+
+.card--web {
+    grid-area: card1;
+    min-width: 0;
+    margin-top: 3px;
+}
+
+.card--solutions {
+    grid-area: card2;
+    min-width: 0;
+    margin-top: 3px;
+}
+
+.card--testimonials {
+    grid-area: card3;
+    min-width: 0;
+    margin-top: 3px;
+}
+
+.welcome {
+    grid-area: welcome;
+    min-width: 0;
+    margin: 0 7px 0 1px;
+}
+
+.sidebar {
+    grid-area: sidebar;
+    min-width: 0;
+    margin: 0 -1px 0 1px;
+}
+
+.footer {
+    grid-area: footer;
+    min-width: 0;
+    margin: 0 -1px 0 1px;
+}
+
+/* Tablet: targetes de 6 columnes */
+@media (max-width: $bp-tablet) {
+    .page {
+        grid-template-areas:
+            'header header header header header header header header header header header header'
+            'hero hero hero hero hero hero hero hero hero hero hero hero'
+            'card1 card1 card1 card1 card1 card1 card2 card2 card2 card2 card2 card2'
+            'card3 card3 card3 card3 card3 card3 sidebar sidebar sidebar sidebar sidebar sidebar'
+            'welcome welcome welcome welcome welcome welcome welcome welcome welcome welcome welcome welcome'
+            'footer footer footer footer footer footer footer footer footer footer footer footer';
+    }
+
+
+    .card--web {
+        margin-top: 0;
+    }
+
+    .card--solutions {
+        margin-top: 0;
+    }
+
+    .card--testimonials {
+        margin-top: 0;
+    }
+
+    .welcome {
+        margin: 0;
+    }
+
+    .sidebar {
+        margin: 0;
+    }
+
+    .footer {
+        margin: 0;
+    }
+}
+
+/* Mòbil: un bloc per fila */
+@media (max-width: $bp-mobile) {
+    .page {
+        grid-template-areas:
+            'header header header header header header header header header header header header'
+            'hero hero hero hero hero hero hero hero hero hero hero hero'
+            'card1 card1 card1 card1 card1 card1 card1 card1 card1 card1 card1 card1'
+            'card2 card2 card2 card2 card2 card2 card2 card2 card2 card2 card2 card2'
+            'card3 card3 card3 card3 card3 card3 card3 card3 card3 card3 card3 card3'
+            'welcome welcome welcome welcome welcome welcome welcome welcome welcome welcome welcome welcome'
+            'sidebar sidebar sidebar sidebar sidebar sidebar sidebar sidebar sidebar sidebar sidebar sidebar'
+            'footer footer footer footer footer footer footer footer footer footer footer footer';
+    }
+}

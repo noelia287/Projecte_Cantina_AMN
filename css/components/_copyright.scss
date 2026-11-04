@@ -1,0 +1,11 @@
+@use '../abstracts' as *;
+
+/* Component Copyright */
+.copyright {
+    margin-bottom: 0;
+    color: $color-text;
+
+    &__link {
+        color: $color-primary;
+    }
+}

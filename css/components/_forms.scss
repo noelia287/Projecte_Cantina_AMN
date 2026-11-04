@@ -1,0 +1,21 @@
+@use '../abstracts' as *;
+
+/* Component Formulari */
+.form {
+    &__label {
+        display: block;
+        margin-bottom: 3px;
+        padding-left: 3px;
+    }
+
+    &__input {
+        display: block;
+        width: 239px;
+        height: 27px;
+        margin: 0 0 8px 2px;
+        padding: 0 6px;
+        background: $color-white;
+        border: 1px solid $input-border-color;
+        border-radius: 2px;
+    }
+}

@@ -1,0 +1,20 @@
+@use '../abstracts' as *;
+
+/* Component Logo */
+.logo {
+    padding-left: 12px;
+    font-family: $font-title;
+    font-size: 45px;
+    line-height: 1;
+    text-transform: uppercase;
+    color: $color-text-dark;
+
+    &__text {
+        text-transform: uppercase;
+    }
+
+    // La "O" en taronja
+    &__accent {
+        color: $color-primary;
+    }
+}

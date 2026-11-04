@@ -1,0 +1,29 @@
+@use '../abstracts' as *;
+
+/* Component Botó */
+.btn {
+    display: inline-block;
+    width: 94px;
+    height: 26px;
+    padding: 0;
+    text-align: center;
+    font-size: $font-size-base;
+    line-height: 24px;
+    color: $color-btn-text;
+    background: $gradient-btn;
+    border: 1px solid $input-border-color;
+    border-top-color: $btn-border-top-color;
+    border-radius: 13px;
+    cursor: pointer;
+
+    &:hover {
+        color: $color-primary;
+    }
+
+    /* Variant petita (botó Subscribe) */
+    &--small {
+        height: 21px;
+        line-height: 19px;
+        border-radius: 10px;
+    }
+}

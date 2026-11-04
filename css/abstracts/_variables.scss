@@ -1,0 +1,38 @@
+// Colors 
+$color-primary: #ec8a1b;       // taronja: h2, enllaços, hover
+$color-text: #9a9b9c;          // text general
+$color-text-dark: #666565;     // logo, menú, subtítols
+$color-title: #363d40;         // h1
+$color-white: #fff;
+$color-lead: #bcbcbc;
+$color-card-title: #7e7e7e;
+$color-btn-text: #787878;
+$color-nav-active-border: #675f55;
+
+// Bordes
+$border-color: #e0e1e1;
+$card-border-color: #e1e0e0;
+$input-border-color: #c6c6c6;
+$btn-border-top-color: #d1d1d1;
+$footer-border-color: #bebebe;
+
+// Fons
+$bg-color: #fcfcfc;
+$gradient-body: linear-gradient(#e4e4e4, $bg-color);
+$gradient-btn: linear-gradient(#e9e8e8, #d4d4d4);
+$gradient-card-title: linear-gradient(#eeeeee, #eaeaea);
+$gradient-nav-active: linear-gradient(#f4d0a7 0%, #f3ad5e 50%, #f0a24a 50%, #efa047 100%);
+
+// Tipografia
+$font-title: 'Century Gothic', 'Questrial', sans-serif;
+$font-body: Arial, Helvetica, sans-serif;
+$font-size-base: 12px;
+
+// Mides
+$page-max-width: 1240px;
+$page-padding: 15px;
+$hero-image-width: 603px; 
+
+// Breakpoints
+$bp-tablet: 991px;
+$bp-mobile: 767px;

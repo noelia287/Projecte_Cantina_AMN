@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 <?php
     $titol = $titol ?? "Cantina";
 ?>
@@ -10,11 +8,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($titol) ?></title>
-    <link rel="stylesheet" href="css/style.scss">
+    <script type="module" src="http://localhost:5173/@vite/client"></script>
+    <script type="module" src="http://localhost:5173/src/js/main.js"></script>
+    <link rel="icon" type="image/png" href="../frontend/public/logo.png">
 </head>
 <body>
 <header>
-    <a href="../public/index.php" class="logo"><img src="../static/media/logo.png" alt="Logo de la cantina"></a>
+    <a href="../public/index.php" class="logo"><img src="../frontend/public/logo.png" alt="Logo de la cantina"></a>
     <nav>
         <ul>
             <li><a href="../public/index.php">Inici</a></li>
@@ -24,4 +24,3 @@
     </nav>
 </header>
 <main>
->>>>>>> Stashed changes

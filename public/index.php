@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projecte Cantina</title>
-</head>
-<body>
-    <h1>Hola</h1>
-</body>
-</html>
+<?php
+$titol = "Projecte Cantina";
+include '../includes/header.php';
+?>
+
+    <img src="../frontend/public/hero.png" alt="Hero Cantina">
+
+<?php
+include '../includes/footer.php';
+?>

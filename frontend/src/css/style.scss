@@ -86,9 +86,56 @@ main {
     }
 }
 
-/* Mòbil: el menú passa a sota del logo */
+/* Botó hamburguesa: ocult a escriptori */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+    background: none;
+    border: 1px solid $cantina-border;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        border-color: $cantina-accent;
+    }
+
+    &__bar {
+        display: block;
+        height: 2px;
+        background: $cantina-text;
+        border-radius: 2px;
+        transition: transform 0.25s, opacity 0.25s;
+    }
+
+    /* Animació a "X" quan el menú és obert */
+}
+
+/* Mòbil: menú hamburguesa */
 @media (max-width: 600px) {
     body > header {
-        flex-direction: column;
+        flex-wrap: wrap;
+
+        nav {
+            display: none;
+            width: 100%;
+
+            &.is-open {
+                display: block;
+            }
+
+            ul {
+                flex-direction: column;
+            }
+        }
+    }
+
+    .menu-toggle {
+        display: flex;
     }
 }

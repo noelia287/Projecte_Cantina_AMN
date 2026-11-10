@@ -82,11 +82,46 @@ main {
         box-shadow: $cantina-shadow;
     }
 }
+/* Botó hamburguesa: ocult a escriptori */
+.menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    margin: 0;
+    font-size: 1.5rem;
+    color: $cantina-text;
+    background: none;
+    border: 1px solid $cantina-border;
+    border-radius: 8px;
+    cursor: pointer;
 
-/* Mòbil: el menú passa a sota del logo */
+    &:hover {
+        background: none;
+        border-color: $cantina-accent;
+    }
+}
+
+/* Mòbil: menú hamburguesa */
 @media (max-width: 600px) {
-    body>header {
-        flex-direction: column;
+    body > header {
+        flex-wrap: wrap;
+
+        nav {
+            display: none;
+            width: 100%;
+
+            &.is-open {
+                display: block;
+            }
+
+            ul {
+                flex-direction: column;
+            }
+        }
+    }
+
+    .menu-toggle {
+        display: block;
     }
 }
 

@@ -15,11 +15,7 @@
 <body>
 <header>
     <a href="../public/index.php" class="logo"><img src="../frontend/public/logo.png" alt="Logo de la cantina"></a>
-    <button class="menu-toggle" type="button" aria-label="Obrir el menú" aria-expanded="false" aria-controls="menu-principal">
-        <span class="menu-toggle__bar"></span>
-        <span class="menu-toggle__bar"></span>
-        <span class="menu-toggle__bar"></span>
-    </button>
+    <button class="menu-toggle" type="button">☰</button>
     <nav id="menu-principal">
         <ul>
             <li><a href="../public/index.php">Inici</a></li>

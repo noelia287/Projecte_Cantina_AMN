@@ -85,35 +85,23 @@ main {
         box-shadow: $cantina-shadow;
     }
 }
-
 /* Botó hamburguesa: ocult a escriptori */
 .menu-toggle {
     display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
     width: 44px;
     height: 44px;
-    padding: 10px;
+    margin: 0;
+    font-size: 1.5rem;
+    color: $cantina-text;
     background: none;
     border: 1px solid $cantina-border;
     border-radius: 8px;
     cursor: pointer;
 
-    &:hover,
-    &:focus-visible {
+    &:hover {
+        background: none;
         border-color: $cantina-accent;
     }
-
-    &__bar {
-        display: block;
-        height: 2px;
-        background: $cantina-text;
-        border-radius: 2px;
-        transition: transform 0.25s, opacity 0.25s;
-    }
-
-    /* Animació a "X" quan el menú és obert */
 }
 
 /* Mòbil: menú hamburguesa */
@@ -136,6 +124,6 @@ main {
     }
 
     .menu-toggle {
-        display: flex;
+        display: block;
     }
 }

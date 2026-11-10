@@ -1,0 +1,31 @@
+
+[
+    {
+        "id": 1,
+        "nom": "Entrepà de pernil",
+        "descripcio": "Entrepà de pernil dolç",
+        "preu": 2.50,
+        "disponible": true
+    },
+    {
+        "id": 2,
+        "nom": "Entrepà de formatge",
+        "descripcio": "Entrepà de formatge",
+        "preu": 2.00,
+        "disponible": true
+    },
+    {
+        "id": 3,
+        "nom": "Aigua",
+        "descripcio": "Ampolla d'aigua de 500 ml",
+        "preu": 1.00,
+        "disponible": true
+    },
+    {
+        "id": 4,
+        "nom": "Coca-Cola",
+        "descripcio": "Llauna de 330 ml",
+        "preu": 1.50,
+        "disponible": false
+    }
+]

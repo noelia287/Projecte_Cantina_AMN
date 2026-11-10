@@ -6,16 +6,13 @@
 @use 'themes' as *;
 @use 'vendors' as *;
 
-/* ==========================================================
-   Base de la Cantina (pàgina index)
-   ========================================================== */
 
 // Colors (tema fosc)
-$cantina-bg: #141210;          // fons gairebé negre
-$cantina-surface: #1f1c19;     // fons de la capçalera
-$cantina-text: #f2ece4;        // text principal
-$cantina-muted: #b0a69c;       // text del menú
-$cantina-accent: #f07a3e;      // taronja terracota
+$cantina-bg: #141210; // fons gairebé negre
+$cantina-surface: #1f1c19; // fons de la capçalera
+$cantina-text: #f2ece4; // text principal
+$cantina-muted: #b0a69c; // text del menú
+$cantina-accent: #f07a3e; // taronja terracota
 $cantina-border: #2e2a26;
 
 // Mides
@@ -33,7 +30,7 @@ body {
 }
 
 /* Capçalera: logo a l'esquerra i menú a la dreta */
-body > header {
+body>header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -79,7 +76,7 @@ main {
     margin: 0 auto;
     padding: 2rem 1rem;
 
-    > img {
+    >img {
         width: 100%;
         border-radius: $cantina-radius;
         box-shadow: $cantina-shadow;
@@ -88,7 +85,88 @@ main {
 
 /* Mòbil: el menú passa a sota del logo */
 @media (max-width: 600px) {
-    body > header {
+    body>header {
         flex-direction: column;
+    }
+}
+
+/* FORMULARI */
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+}
+
+h2 {
+    font-size: 24px;
+    font-weight: normal;
+}
+
+form {
+    width: 400px;
+    max-width: 100%;
+}
+
+label {
+    display: block;
+    color: $cantina-text;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+label span {
+    color: red;
+}
+
+input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.error {
+    color: #ff9b78;
+    font-size: 0.85rem;
+    margin: 0.35rem 0 0;
+    padding: 0.4rem 0.65rem;
+    background-color: rgba($cantina-accent, 0.10);
+    border-radius: 4px;
+}
+
+.error:empty {
+    display: none;
+}
+button {
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 0.65rem 1.25rem;
+    color: $cantina-text;
+    background: $cantina-accent;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        background: $cantina-accent;
+    }
+}
+
+button[type="button"] {
+    background: $cantina-surface;
+    border: 1px solid $cantina-border;
+
+    &:hover {
+        background: $cantina-border;
     }
 }

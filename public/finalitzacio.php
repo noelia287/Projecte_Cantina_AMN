@@ -7,7 +7,8 @@ $titol = "Projecte Cantina";
 $missatge = "";
 $error = "";
 
-// Rebre les dades de la compra
+// REBRE LES DADES DE LA COMPRA
+
 if (isset($_POST['quantitats'])) {
 
     $productes = json_decode(file_get_contents('../data/productes.json'), true);
@@ -40,7 +41,8 @@ if (isset($_POST['quantitats'])) {
 }
 
 
-// Rebre les dades del formulari
+// REBRE LES DADES DEL FORMULARI
+
 if (isset($_POST['finalitzar'])) {
 
     $nom = trim($_POST['nom'] ?? '');
@@ -56,10 +58,16 @@ if (isset($_POST['finalitzar'])) {
 
         $error = "El correu electrònic no és correcte.";
 
+    } elseif (!isset($_SESSION['compra']) || count($_SESSION['compra']) == 0) {
+
+        $error = "No hi ha cap producte seleccionat.";
+
     } else {
 
-        // Crear el tiquet
+        // CREAR EL TIQUET
+
         $tiquet = [
+            'numero' => uniqid(),
             'data' => date('d/m/Y H:i'),
             'nom' => $nom,
             'cognom' => $cognom,
@@ -69,41 +77,147 @@ if (isset($_POST['finalitzar'])) {
             'total' => $_SESSION['total']
         ];
 
-        // Guardar el tiquet en un fitxer
-        $fitxer = '../comandes/tiquet_' . uniqid() . '.json';
+        // CREAR LA CARPETA
 
         if (!is_dir('../comandes')) {
             mkdir('../comandes', 0755, true);
         }
 
+        // GUARDAR EL TIQUET
+
+        $fitxer = '../comandes/tiquet_' . $tiquet['numero'] . '.json';
+
         if (file_put_contents($fitxer, json_encode($tiquet, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false) {
 
-        unset($_SESSION['compra']);
-        unset($_SESSION['total']);
+            $_SESSION['tiquet'] = $tiquet;
 
-        $missatge = "La compra s'ha realitzat correctament!";
+            unset($_SESSION['compra']);
+            unset($_SESSION['total']);
+
+            $missatge = "La compra s'ha realitzat correctament!";
 
         } else {
+
             $error = "Error en guardar el tiquet.";
-            }
+
         }
     }
+}
 
 include '../includes/header.php';
 ?>
 
 <h1>Finalització de la compra</h1>
 
+
 <?php if ($missatge != ""): ?>
 
-    <h2><?php echo $missatge; ?></h2>
-    <p>Gràcies per comprar a la nostra cantina!</p>
+    <!-- TIQUET FINAL -->
 
-    <a href="compra.php">Tornar a comprar</a>
+    <?php $tiquet = $_SESSION['tiquet']; ?>
+
+    <div class="zona-tiquet">
+
+        <div class="tiquet">
+
+            <div class="tiquet-capcalera">
+                <h2>CANTINA</h2>
+                <p>TIQUET DE COMPRA</p>
+                <p>Gràcies per la vostra visita!</p>
+            </div>
+
+            <hr>
+
+            <p>
+                <strong>Ticket:</strong>
+                <?php echo htmlspecialchars($tiquet['numero']); ?>
+            </p>
+
+            <p>
+                <strong>Data:</strong>
+                <?php echo htmlspecialchars($tiquet['data']); ?>
+            </p>
+
+            <hr>
+
+            <p><strong>CLIENT</strong></p>
+
+            <p>
+                <?php echo htmlspecialchars($tiquet['nom'] . ' ' . $tiquet['cognom']); ?>
+            </p>
+
+            <p>
+                <?php echo htmlspecialchars($tiquet['email']); ?>
+            </p>
+
+            <p>
+                <?php echo htmlspecialchars($tiquet['telefon']); ?>
+            </p>
+
+            <hr>
+
+            <p class="text-centre">
+                <strong>DETALL DE LA COMPRA</strong>
+            </p>
+
+            <table class="taula-tiquet">
+
+                <tr>
+                    <th>Producte</th>
+                    <th>U.</th>
+                    <th>Preu</th>
+                </tr>
+
+                <?php foreach ($tiquet['productes'] as $producte): ?>
+
+                    <tr>
+                        <td>
+                            <?php echo htmlspecialchars($producte['nom']); ?>
+                        </td>
+
+                        <td>
+                            <?php echo $producte['quantitat']; ?>
+                        </td>
+
+                        <td>
+                            <?php echo number_format($producte['subtotal'], 2, ',', '.'); ?> €
+                        </td>
+                    </tr>
+
+                <?php endforeach; ?>
+
+            </table>
+
+            <hr>
+
+            <div class="total-tiquet">
+                <span>TOTAL</span>
+
+                <span>
+                    <?php echo number_format($tiquet['total'], 2, ',', '.'); ?> €
+                </span>
+            </div>
+
+            <hr>
+
+            <div class="tiquet-peu">
+                <p>Gràcies per comprar a la nostra cantina!</p>
+            </div>
+
+        </div>
+
+        <p class="no-imprimir">
+            <a href="compra.php">Tornar a comprar</a>
+        </p>
+
+    </div>
+
 
 <?php elseif (isset($_SESSION['compra']) && count($_SESSION['compra']) > 0): ?>
 
-    <h2>Tiquet de compra</h2>
+    <!-- RESUM DE LA COMPRA -->
+
+    <h2>Resum de la compra</h2>
 
     <table border="1" cellpadding="10">
 
@@ -117,27 +231,43 @@ include '../includes/header.php';
         <?php foreach ($_SESSION['compra'] as $producte): ?>
 
             <tr>
-                <td><?php echo htmlspecialchars($producte['nom']); ?></td>
-                <td><?php echo number_format($producte['preu'], 2, ',', '.'); ?> €</td>
-                <td><?php echo $producte['quantitat']; ?></td>
-                <td><?php echo number_format($producte['subtotal'], 2, ',', '.'); ?> €</td>
+                <td>
+                    <?php echo htmlspecialchars($producte['nom']); ?>
+                </td>
+
+                <td>
+                    <?php echo number_format($producte['preu'], 2, ',', '.'); ?> €
+                </td>
+
+                <td>
+                    <?php echo $producte['quantitat']; ?>
+                </td>
+
+                <td>
+                    <?php echo number_format($producte['subtotal'], 2, ',', '.'); ?> €
+                </td>
             </tr>
 
         <?php endforeach; ?>
 
     </table>
 
-    <h3>Total: <?php echo number_format($_SESSION['total'], 2, ',', '.'); ?> €</h3>
+    <h3>
+        Total:
+        <?php echo number_format($_SESSION['total'], 2, ',', '.'); ?> €
+    </h3>
 
     <hr>
+
+    <!-- FORMULARI -->
 
     <h2>Dades de l'usuari</h2>
 
     <?php if ($error != ""): ?>
-        <p class="error"><?php echo $error; ?></p>
+        <p class="error">
+            <?php echo htmlspecialchars($error); ?>
+        </p>
     <?php endif; ?>
-
-    <script src="../fronted/src/js/main.js"></script>
 
     <form id="formulari" method="POST" action="finalitzacio.php" novalidate>
 
@@ -157,18 +287,27 @@ include '../includes/header.php';
         <input id="tel" name="tel">
         <p class="error" id="error-tel"></p>
 
-        <button type="submit" name="finalitzar" value="1">Envia</button>
+        <button type="submit" name="finalitzar" value="1">
+            Envia
+        </button>
 
-        <button type="reset" id="reseteja">Reseteja</button>
+        <button type="reset" id="reseteja">
+            Reseteja
+        </button>
 
     </form>
+
+    <script type="module" src="../frontend/src/js/main.js"></script>
+
 
 <?php else: ?>
 
     <p>No has seleccionat cap producte.</p>
+
     <a href="compra.php">Tornar a comprar</a>
 
 <?php endif; ?>
+
 
 <?php
 include '../includes/footer.php';

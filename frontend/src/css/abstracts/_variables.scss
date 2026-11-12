@@ -1,4 +1,17 @@
-// Colors 
+// Colors de la cantina (tema fosc)
+$cantina-bg: #141210; // fons gairebé negre
+$cantina-surface: #1f1c19; // fons de la capçalera
+$cantina-text: #f2ece4; // text principal
+$cantina-muted: #b0a69c; // text del menú
+$cantina-accent: #f07a3e; // taronja terracota
+$cantina-border: #2e2a26;
+
+// Mides de la cantina
+$cantina-radius: 12px;
+$cantina-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+$cantina-max-width: 1100px;
+
+// Colors
 $color-primary: #ec8a1b;       // taronja: h2, enllaços, hover
 $color-text: #9a9b9c;          // text general
 $color-text-dark: #666565;     // logo, menú, subtítols

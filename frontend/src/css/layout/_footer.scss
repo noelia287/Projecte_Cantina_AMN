@@ -2,8 +2,9 @@
 
 /* Footer: contingut centrat */
 .footer {
+    max-width: $cantina-max-width;
+    margin: 2rem auto 0;
+    padding: 1.5rem 1rem 2rem;
     text-align: center;
-    margin-top: 29px;
-    padding: 20px;
-    border-top: 1px solid $footer-border-color;
+    border-top: 1px solid $cantina-border;
 }

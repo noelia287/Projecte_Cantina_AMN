@@ -1,7 +1,21 @@
 <?php
 $titol = "Condicions legals";
+?>
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= htmlspecialchars($titol) ?></title>
+    <script type="module" src="http://localhost:5173/@vite/client"></script>
+    <script type="module" src="http://localhost:5173/src/js/main.js"></script>
+    <link rel="icon" type="image/png" href="../frontend/public/logo.png">
+</head>
+<body>
+<?php
 include '../includes/header.php';
 ?>
+<main>
 
 <article class="condicions" style="max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6;">
     <h1 style="color: #ec8a1b;">Termes i condicions d'ús</h1>
@@ -67,4 +81,8 @@ include '../includes/header.php';
     <p>Per a qualsevol consulta, suggeriment o incidència relacionada amb el lloc web o els serveis de la cantina, els usuaris poden posar-se en contacte amb l'administració de la cantina a través dels canals de contacte disponibles al lloc web.</p>
 </article>
 
+</main>
+
 <?php include '../includes/footer.php'; ?>
+</body>
+</html>

@@ -297,7 +297,6 @@ include '../includes/header.php';
 
     </form>
 
-    <script type="module" src="../frontend/src/js/main.js"></script>
 
 
 <?php else: ?>

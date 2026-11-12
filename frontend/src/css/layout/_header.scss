@@ -1,15 +1,88 @@
-/* Header: logo a l'esquerra i menú a la dreta */
-.header {
-    
+@use '../abstracts' as *;
+
+/* Capçalera: logo a l'esquerra i menú a la dreta */
+body>header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem max(1rem, calc((100% - #{$cantina-max-width}) / 2));
+    background: $cantina-surface;
+    border-bottom: 1px solid $cantina-border;
+    box-shadow: $cantina-shadow;
 
     .logo {
-        grid-area: logo;
-        width: 10000px;
-        height: auto;
+        padding: 0;
+
+        img {
+            height: 48px;
+            width: auto;
+        }
     }
 
-    .nav--header {
-        grid-area: nav;
-        margin-top: 11px;
+    nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem;
+    }
+
+    nav a {
+        display: block;
+        padding: 0.5rem 1rem;
+        font-weight: 600;
+        color: $cantina-muted;
+        border-radius: 999px;
+        transition: background 0.2s, color 0.2s;
+
+        &:hover {
+            color: $cantina-accent;
+            background: rgba($cantina-accent, 0.08);
+        }
+    }
+}
+
+/* Botó hamburguesa: ocult a escriptori */
+.menu-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+    color: $cantina-text;
+    background: none;
+    border: 1px solid $cantina-border;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        border-color: $cantina-accent;
+    }
+}
+
+/* Mòbil: menú hamburguesa */
+@media (max-width: $bp-mobile) {
+    body>header {
+        flex-wrap: wrap;
+
+        nav {
+            display: none;
+            width: 100%;
+
+            &.is-open {
+                display: block;
+            }
+
+            ul {
+                flex-direction: column;
+            }
+        }
+    }
+
+    .menu-toggle {
+        display: flex;
     }
 }

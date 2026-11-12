@@ -14,7 +14,7 @@
             include '../includes/header.php';
         ?>
         <main>
-        <img src="../frontend/public/hero.png" alt="Hero Cantina">
+            <img src="../frontend/public/hero.png" alt="Hero Cantina">
         </main>
         <?php
             include '../includes/footer.php';

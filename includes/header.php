@@ -15,7 +15,8 @@
 <body>
 <header>
     <a href="../public/index.php" class="logo"><img src="../frontend/public/logo.png" alt="Logo de la cantina"></a>
-    <nav>
+    <button class="menu-toggle" type="button">☰</button>
+    <nav id="menu-principal">
         <ul>
             <li><a href="../public/index.php">Inici</a></li>
             <li><a href="../public/compra.php">Compra</a></li>

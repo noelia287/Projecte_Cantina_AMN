@@ -1,0 +1,25 @@
+@use '../abstracts' as *;
+
+/* Pàgina d'inici: ofertes del dia sota la imatge
+   escriptori 3 columnes, tablet 2 columnes, mòbil 1 columna */
+.ofertes {
+    margin-top: 2.5rem;
+
+    h2 {
+        margin-bottom: 1.5rem;
+    }
+
+    &__llista {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+
+        @media (max-width: $bp-tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: $bp-mobile) {
+            grid-template-columns: 1fr;
+        }
+    }
+}

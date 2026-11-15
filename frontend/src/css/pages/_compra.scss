@@ -1,0 +1,35 @@
+@use '../abstracts' as *;
+
+/* Pàgina de compra: graella de productes
+   escriptori 3 columnes, tablet 2 columnes, mòbil 1 columna */
+.productes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+
+    @media (max-width: $bp-tablet) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    @media (max-width: $bp-mobile) {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Botó de continuar: a la dreta a escriptori, amplada completa a mòbil */
+.compra__accions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+
+    button {
+        margin: 0;
+    }
+
+    @media (max-width: $bp-mobile) {
+        button {
+            flex: 1;
+        }
+    }
+}

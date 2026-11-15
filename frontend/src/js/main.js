@@ -1,3 +1,6 @@
+// Icofont: només el CSS base i les icones sòlides
+import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
+import '@fortawesome/fontawesome-free/css/solid.min.css'
 import '../css/style.scss'
 import './formulari.js'
 

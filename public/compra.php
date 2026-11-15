@@ -26,61 +26,75 @@ $productes = json_decode(file_get_contents($fitxer), true);
 
 <form action="finalitzacio.php" method="POST">
 
-    <table border="1" cellpadding="10">
-
-        <tr>
-            <th>Producte</th>
-            <th>Descripció</th>
-            <th>Preu</th>
-            <th>Disponibilitat</th>
-            <th>Quantitat</th>
-        </tr>
+    <ul class="productes">
 
         <?php foreach ($productes as $producte): ?>
 
-            <tr>
-                <td><?php echo htmlspecialchars($producte['nom']); ?></td>
+            <li>
+                <?php $oferta = $producte['preu_oferta'] ?? null; ?>
 
-                <td><?php echo htmlspecialchars($producte['descripcio']); ?></td>
+                <article class="card<?php echo $producte['disponible'] ? '' : ' card--esgotat'; ?><?php echo $oferta ? ' card--oferta' : ''; ?>">
 
-                <td><?php echo number_format($producte['preu'], 2, ',', '.'); ?> €</td>
-
-                <td>
-                    <?php
-                    if ($producte['disponible']) {
-                        echo "Disponible";
-                    } else {
-                        echo "Esgotat";
-                    }
-                    ?>
-                </td>
-
-                <td>
-                    <?php if ($producte['disponible']): ?>
-
-                        <input
-                            type="number"
-                            name="quantitats[<?php echo $producte['id']; ?>]"
-                            min="0"
-                            max="20"
-                            value="0"
-                        >
-
-                    <?php else: ?>
-
-                        <input type="number" value="0" disabled>
-
+                    <?php if ($oferta): ?>
+                        <span class="card__etiqueta"><i class="fa-solid fa-tag" aria-hidden="true"></i> Oferta</span>
                     <?php endif; ?>
-                </td>
-            </tr>
+
+                    <span class="card__imatge" aria-hidden="true">
+                        <i class="fa-solid <?php echo htmlspecialchars($producte['icona']); ?>"></i>
+                    </span>
+
+                    <h2 class="card__nom"><?php echo htmlspecialchars($producte['nom']); ?></h2>
+
+                    <div class="card__compra">
+                        <?php if ($oferta): ?>
+                            <span class="card__preu">
+                                <del><?php echo number_format($producte['preu'], 2, ',', '.'); ?> €</del>
+                                <?php echo number_format($oferta, 2, ',', '.'); ?> €
+                            </span>
+                        <?php else: ?>
+                            <span class="card__preu"><?php echo number_format($producte['preu'], 2, ',', '.'); ?> €</span>
+                        <?php endif; ?>
+
+                        <div class="card__quantitat">
+                            <label for="quantitat-<?php echo $producte['id']; ?>">Quantitat</label>
+
+                            <?php if ($producte['disponible']): ?>
+
+                                <input
+                                    type="number"
+                                    id="quantitat-<?php echo $producte['id']; ?>"
+                                    name="quantitats[<?php echo $producte['id']; ?>]"
+                                    min="0"
+                                    max="20"
+                                    value="0"
+                                >
+
+                            <?php else: ?>
+
+                                <input type="number" id="quantitat-<?php echo $producte['id']; ?>" value="0" disabled>
+
+                            <?php endif; ?>
+                        </div>
+                    </div>
+
+                    <p class="card__estat">
+                        <?php if ($producte['disponible']): ?>
+                            <i class="fa-solid fa-circle-check" aria-hidden="true"></i> Disponible
+                        <?php else: ?>
+                            <i class="fa-solid fa-circle-xmark" aria-hidden="true"></i> Esgotat
+                        <?php endif; ?>
+                    </p>
+
+                </article>
+            </li>
 
         <?php endforeach; ?>
 
-    </table>
+    </ul>
 
-    <br>
-
-    <button type="submit">Continuar amb la compra</button>
+    <div class="compra__accions">
+        <button type="submit">Continuar amb la compra</button>
+    </div>
 
 </form>
 

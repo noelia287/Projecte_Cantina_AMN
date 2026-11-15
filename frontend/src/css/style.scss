@@ -16,21 +16,8 @@ body {
     background: $cantina-bg;
 }
 
-/* Contingut principal: imatge hero centrada */
-main {
-    max-width: $cantina-max-width;
-    margin: 0 auto;
-    padding: 2rem 1rem;
-
-    >img {
-        width: 100%;
-        border-radius: $cantina-radius;
-        box-shadow: $cantina-shadow;
-    }
-}
-
 /* FORMULARI */
-form {
+#formulari {
     width: 400px;
     max-width: 100%;
 }

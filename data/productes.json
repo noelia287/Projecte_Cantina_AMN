@@ -1,31 +1,77 @@
-
 [
     {
         "id": 1,
         "nom": "Entrepà de pernil",
         "descripcio": "Entrepà de pernil dolç",
         "preu": 2.50,
-        "disponible": true
+        "disponible": true,
+        "icona": "fa-bread-slice"
     },
     {
         "id": 2,
-        "nom": "Entrepà de formatge",
-        "descripcio": "Entrepà de formatge",
-        "preu": 2.00,
-        "disponible": true
+        "nom": "Entrepà de truita",
+        "descripcio": "Entrepà de truita de patates",
+        "preu": 2.80,
+        "disponible": true,
+        "icona": "fa-egg",
+        "preu_oferta": 2.30
     },
     {
         "id": 3,
-        "nom": "Aigua",
-        "descripcio": "Ampolla d'aigua de 500 ml",
-        "preu": 1.00,
-        "disponible": true
+        "nom": "Porció de pizza",
+        "descripcio": "Pizza de pernil i formatge",
+        "preu": 2.20,
+        "disponible": false,
+        "icona": "fa-pizza-slice"
     },
     {
         "id": 4,
-        "nom": "Coca-Cola",
-        "descripcio": "Llauna de 330 ml",
-        "preu": 1.50,
-        "disponible": false
+        "nom": "Cafè amb llet",
+        "descripcio": "Cafè amb llet calent",
+        "preu": 1.30,
+        "disponible": true,
+        "icona": "fa-mug-hot",
+        "preu_oferta": 1.00
+    },
+    {
+        "id": 5,
+        "nom": "Aigua",
+        "descripcio": "Ampolla d'aigua de 500 ml",
+        "preu": 1.00,
+        "disponible": true,
+        "icona": "fa-bottle-water"
+    },
+    {
+        "id": 6,
+        "nom": "Galetes",
+        "descripcio": "Paquet de galetes de xocolata",
+        "preu": 1.20,
+        "disponible": true,
+        "icona": "fa-cookie"
+    },
+    {
+        "id": 7,
+        "nom": "Entrepà de formatge",
+        "descripcio": "Entrepà de formatge",
+        "preu": 2.00,
+        "disponible": true,
+        "icona": "fa-cheese"
+    },
+    {
+        "id": 8,
+        "nom": "Suc de taronja",
+        "descripcio": "Suc de taronja natural",
+        "preu": 1.80,
+        "disponible": true,
+        "icona": "fa-lemon",
+        "preu_oferta": 1.50
+    },
+    {
+        "id": 9,
+        "nom": "Poma",
+        "descripcio": "Poma de temporada",
+        "preu": 0.80,
+        "disponible": true,
+        "icona": "fa-apple-whole"
     }
 ]

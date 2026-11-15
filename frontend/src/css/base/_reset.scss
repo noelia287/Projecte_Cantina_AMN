@@ -1,3 +1,6 @@
+/* RESET: elimina els estils propis de cada navegador
+   perquè la web es vegi igual a Chrome, Firefox, Safari... */
+
 /* Les mides inclouen padding i border */
 *,
 *::before,
@@ -11,21 +14,78 @@
     padding: 0;
 }
 
-img {
-    max-width: 100%;
-    display: block;
+/* Evita que el mòbil faci el text més gran en girar la pantalla */
+html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
-ul {
+/* Imatges i elements multimèdia: mai més amples que el contenidor */
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+}
+
+/* Llistes sense punts */
+ul,
+ol {
     list-style: none;
 }
 
+/* Enllaços sense subratllat i amb el color del text */
 a {
     color: inherit;
     text-decoration: none;
 }
 
+/* Els camps de formulari agafen la font de la pàgina */
 button,
-input {
+input,
+select,
+textarea {
     font: inherit;
+}
+
+/* Botons sense l'estil del navegador */
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Els textareas només es poden fer més alts */
+textarea {
+    resize: vertical;
+}
+
+/* Taules sense espai entre cel·les */
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Les paraules llargues no surten del contenidor */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    overflow-wrap: break-word;
+}
+
+/* Respecta qui té les animacions desactivades al sistema */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
 }

@@ -2,76 +2,93 @@
     {
         "id": 1,
         "nom": "Entrepà de pernil",
-        "descripcio": "Entrepà de pernil dolç",
-        "preu": 2.50,
+        "descripcio": "Pa rústic",
+        "preu": 2.5,
         "disponible": true,
-        "icona": "fa-bread-slice"
+        "icona": "fa-bread-slice",
+        "imatge": "bocata.jpeg"
     },
     {
         "id": 2,
-        "nom": "Entrepà de truita",
-        "descripcio": "Entrepà de truita de patates",
-        "preu": 2.80,
+        "nom": "Coca-Cola",
+        "descripcio": "Llauna 330 ml",
+        "preu": 1.5,
         "disponible": true,
-        "icona": "fa-egg",
-        "preu_oferta": 2.30
+        "icona": "fa-bottle-water",
+        "imatge": "cocacola.jpeg",
+        "preu_oferta": 1.2
     },
     {
         "id": 3,
         "nom": "Porció de pizza",
-        "descripcio": "Pizza de pernil i formatge",
-        "preu": 2.20,
-        "disponible": false,
-        "icona": "fa-pizza-slice"
+        "descripcio": "Porció",
+        "preu": 2.2,
+        "disponible": true,
+        "icona": "fa-pizza-slice",
+        "imatge": "pizza.jpeg"
     },
     {
         "id": 4,
         "nom": "Cafè amb llet",
-        "descripcio": "Cafè amb llet calent",
-        "preu": 1.30,
+        "descripcio": "Tassa",
+        "preu": 1.3,
         "disponible": true,
         "icona": "fa-mug-hot",
-        "preu_oferta": 1.00
+        "imatge": "cafe.jpeg",
+        "preu_oferta": 1.0
     },
     {
         "id": 5,
         "nom": "Aigua",
-        "descripcio": "Ampolla d'aigua de 500 ml",
-        "preu": 1.00,
+        "descripcio": "Ampolla 500 ml",
+        "preu": 1.0,
         "disponible": true,
-        "icona": "fa-bottle-water"
+        "icona": "fa-bottle-water",
+        "imatge": "aigua.jpeg"
     },
     {
         "id": 6,
-        "nom": "Galetes",
-        "descripcio": "Paquet de galetes de xocolata",
-        "preu": 1.20,
+        "nom": "Croissant",
+        "descripcio": "Unitat",
+        "preu": 1.2,
         "disponible": true,
-        "icona": "fa-cookie"
+        "icona": "fa-bread-slice",
+        "imatge": "croissant.jpeg"
     },
     {
         "id": 7,
-        "nom": "Entrepà de formatge",
-        "descripcio": "Entrepà de formatge",
-        "preu": 2.00,
+        "nom": "Donut",
+        "descripcio": "Unitat",
+        "preu": 1.2,
         "disponible": true,
-        "icona": "fa-cheese"
+        "icona": "fa-cookie",
+        "imatge": "donut.jpeg"
     },
     {
         "id": 8,
-        "nom": "Suc de taronja",
-        "descripcio": "Suc de taronja natural",
-        "preu": 1.80,
+        "nom": "Frankfurt",
+        "descripcio": "Pa de frankfurt",
+        "preu": 2.5,
         "disponible": true,
-        "icona": "fa-lemon",
-        "preu_oferta": 1.50
+        "icona": "fa-hotdog",
+        "imatge": "hotdog.jpeg"
     },
     {
         "id": 9,
-        "nom": "Poma",
-        "descripcio": "Poma de temporada",
-        "preu": 0.80,
+        "nom": "KitKat",
+        "descripcio": "Barreta 41,5 g",
+        "preu": 1.2,
         "disponible": true,
-        "icona": "fa-apple-whole"
+        "icona": "fa-cookie",
+        "imatge": "kitkat.jpeg"
+    },
+    {
+        "id": 10,
+        "nom": "Patates Lay's",
+        "descripcio": "Bossa 45 g",
+        "preu": 1.2,
+        "disponible": true,
+        "icona": "fa-cookie",
+        "imatge": "lays.jpeg"
     }
 ]

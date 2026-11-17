@@ -7,13 +7,22 @@ function llegir_productes(): array {
     return json_decode(file_get_contents($fitxer), true);
 }
 
+// Ofertes del dia: productes disponibles que tenen preu d'oferta
+function llegir_ofertes(): array {
+    return array_filter(llegir_productes(), function ($producte) {
+        return $producte['disponible'] && isset($producte['preu_oferta']);
+    });
+}
+
 // 2.5 → "2,50 €"
 function format_preu(float $preu): string {
     return number_format($preu, 2, ',', '.') . ' €';
 }
 
-// Pinta la targeta d'un producte de la pàgina de compra
-function targeta_producte(array $producte): void {
+// Pinta la targeta d'un producte
+// $amb_carret = true → carret amb quantitat (compra.php)
+// $amb_carret = false → botó "Comprar" que porta a compra.php (index.php)
+function targeta_producte(array $producte, bool $amb_carret = true): void {
     $oferta = $producte['preu_oferta'] ?? null;
     $disponible = $producte['disponible'];
     $id = $producte['id'];
@@ -42,6 +51,9 @@ function targeta_producte(array $producte): void {
                     <?php endif; ?>
                 </span>
 
+                <?php if (!$amb_carret): ?>
+                    <a class="producte__boto" href="compra.php">Comprar</a>
+                <?php else: ?>
                 <div class="producte__quantitat">
                     <!-- Botó del carret: es veu mentre la quantitat és 0 -->
                     <button type="button" class="producte__carret" aria-label="Afegir al carret"<?= $disponible ? '' : ' disabled' ?>>
@@ -58,6 +70,7 @@ function targeta_producte(array $producte): void {
                     <!-- Valor que s'envia amb el formulari -->
                     <input type="hidden" name="quantitats[<?= $id ?>]" value="0">
                 </div>
+                <?php endif; ?>
             </div>
         </div>
 

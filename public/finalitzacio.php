@@ -2,6 +2,8 @@
 <?php
 session_start();
 
+require_once '../includes/funcions.php';
+
 $titol = "Projecte Cantina";
 
 $missatge = "";
@@ -11,7 +13,7 @@ $error = "";
 
 if (isset($_POST['quantitats'])) {
 
-    $productes = json_decode(file_get_contents('../data/productes.json'), true);
+    $productes = llegir_productes();
 
     $compra = [];
     $total = 0;
@@ -187,7 +189,7 @@ layout_inici($titol);
                         </td>
 
                         <td>
-                            <?php echo number_format($producte['subtotal'], 2, ',', '.'); ?> €
+                            <?php echo format_preu($producte['subtotal']); ?>
                         </td>
                     </tr>
 
@@ -201,7 +203,7 @@ layout_inici($titol);
                 <span>TOTAL</span>
 
                 <span>
-                    <?php echo number_format($tiquet['total'], 2, ',', '.'); ?> €
+                    <?php echo format_preu($tiquet['total']); ?>
                 </span>
             </div>
 
@@ -248,7 +250,7 @@ layout_inici($titol);
                 </td>
 
                 <td>
-                    <?php echo number_format($producte['preu'], 2, ',', '.'); ?> €
+                    <?php echo format_preu($producte['preu']); ?>
                 </td>
 
                 <td>
@@ -256,7 +258,7 @@ layout_inici($titol);
                 </td>
 
                 <td>
-                    <?php echo number_format($producte['subtotal'], 2, ',', '.'); ?> €
+                    <?php echo format_preu($producte['subtotal']); ?>
                 </td>
             </tr>
 
@@ -267,7 +269,7 @@ layout_inici($titol);
 
     <p class="finalitzacio__total">
         <strong>Total:</strong>
-        <strong><?php echo number_format($_SESSION['total'], 2, ',', '.'); ?> €</strong>
+        <strong><?php echo format_preu($_SESSION['total']); ?></strong>
     </p>
 
     </section>

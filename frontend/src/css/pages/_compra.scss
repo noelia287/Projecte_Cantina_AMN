@@ -18,14 +18,15 @@
     }
 
     h1 {
-        margin: 0.25rem 0 0.5rem;
+        margin: 1rem 0 1.25rem;
         font-size: 3rem;
         color: #fff;
     }
 
-    p:last-child {
+    // Frase de sota el títol
+    h1 + p {
         margin: 0;
-        max-width: 28rem;
+        max-width: 36rem;
         color: #eee;
     }
 
@@ -153,6 +154,20 @@
         min-width: 1.2rem;
         font-weight: 700;
         text-align: center;
+    }
+
+    // Botó "Comprar" de les ofertes de l'inici
+    &__boto {
+        padding: 0.35rem 0.8rem;
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #fff;
+        background: $cantina-accent;
+        border-radius: 8px;
+
+        &:hover {
+            background: var(--cantina-accent-hover);
+        }
     }
 
     // Etiqueta "Oferta" / "Esgotat" a sobre de la foto

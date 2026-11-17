@@ -1,18 +1,22 @@
 <?php
+    require_once '../includes/funcions.php';
+
     $titol = "Projecte Cantina";
 
-    // Ofertes del dia: productes disponibles que tenen preu d'oferta
-    $productes = json_decode(file_get_contents('../data/productes.json'), true);
-    $ofertes = array_filter($productes, function ($producte) {
-        return $producte['disponible'] && isset($producte['preu_oferta']);
-    });
+    $ofertes = llegir_ofertes();
 ?>
 <?php
 require_once '../includes/layout.php';
 layout_inici($titol);
 ?>
         <main>
-            <img src="../frontend/public/hero.png" alt="Hero Cantina">
+            <!-- Banner amb la foto de la cantina de fons -->
+            <section class="banner banner--inici">
+                <p class="banner__subtitol">La Cantina</p>
+                <h1>Benvinguts a la Cantina</h1>
+                <p>Entrepans, begudes i snacks per agafar forces entre classe i classe.</p>
+                <a class="banner__boto" href="compra.php">Veure productes</a>
+            </section>
 
             <?php if (count($ofertes) > 0): ?>
 
@@ -22,32 +26,7 @@ layout_inici($titol);
                 <ul class="ofertes__llista">
 
                     <?php foreach ($ofertes as $producte): ?>
-
-                        <li>
-                            <article class="card card--oferta">
-
-                                <span class="card__etiqueta"><i class="fa-solid fa-tag" aria-hidden="true"></i> Oferta</span>
-
-                                <span class="card__imatge" aria-hidden="true">
-                                    <i class="fa-solid <?php echo htmlspecialchars($producte['icona']); ?>"></i>
-                                </span>
-
-                                <h3 class="card__nom"><?php echo htmlspecialchars($producte['nom']); ?></h3>
-
-                                <div class="card__compra">
-                                    <span class="card__preu">
-                                        <del><?php echo number_format($producte['preu'], 2, ',', '.'); ?> €</del>
-                                        <?php echo number_format($producte['preu_oferta'], 2, ',', '.'); ?> €
-                                    </span>
-                                </div>
-
-                                <a class="card__enllac" href="compra.php">
-                                    Comprar <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-                                </a>
-
-                            </article>
-                        </li>
-
+                        <li><?php targeta_producte($producte, false); ?></li>
                     <?php endforeach; ?>
 
                 </ul>

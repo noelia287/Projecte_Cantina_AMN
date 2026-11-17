@@ -30,24 +30,26 @@ label {
 }
 
 label span {
-    color: red;
+    color: var(--color-required);
 }
 
 input {
     box-sizing: border-box;
     width: 100%;
     padding: 12px;
-    border: 1px solid #aaa;
+    border: 1px solid $input-border-color;
+    color: $cantina-text;
+    background: $cantina-surface;
     border-radius: 5px;
     font-size: 16px;
 }
 
 .error {
-    color: #ff9b78;
+    color: var(--color-error);
     font-size: 0.85rem;
     margin: 0.35rem 0 0;
     padding: 0.4rem 0.65rem;
-    background-color: rgba($cantina-accent, 0.10);
+    background-color: color-mix(in srgb, var(--cantina-accent) 10%, transparent);
     border-radius: 4px;
 }
 
@@ -68,7 +70,7 @@ form button {
     transition: 0.2s;
 
     &:hover {
-        background: #d9682f; // taronja una mica més fosc
+        background: var(--cantina-accent-hover); // taronja una mica més fosc
     }
 }
 

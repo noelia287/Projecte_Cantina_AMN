@@ -1,17 +1,40 @@
 // Colors de la cantina (tema fosc)
-$cantina-bg: #141210; // fons gairebé negre
-$cantina-surface: #1f1c19; // fons de la capçalera
-$cantina-text: #f2ece4; // text principal
-$cantina-muted: #b0a69c; // text del menú
-$cantina-accent: #f07a3e; // taronja terracota
-$cantina-border: #2e2a26;
+$cantina-bg: var(--cantina-bg); // fons gairebé negre
+$cantina-surface: var(--cantina-surface); // fons de la capçalera
+$cantina-text: var(--cantina-text); // text principal
+$cantina-muted: var(--cantina-muted); // text del menú
+$cantina-accent: var(--cantina-accent); // taronja terracota
+$cantina-border: var(--cantina-border);
 
 // Mides de la cantina
 $cantina-radius: 12px;
-$cantina-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+$cantina-shadow: 0 4px 20px var(--cantina-shadow-color);
 $cantina-max-width: 1100px;
 
 // Colors
+$color-primary: var(--color-primary); // taronja: h2, enllaços, hover
+$color-text: var(--color-text); // text general
+$color-text-dark: var(--color-text-dark); // logo, menú, subtítols
+$color-title: var(--color-title); // h1
+$color-white: var(--color-white);
+$color-lead: var(--color-lead);
+$color-card-title: var(--color-card-title);
+$color-btn-text: var(--color-btn-text);
+$color-nav-active-border: var(--color-nav-active-border);
+
+// Bordes
+$border-color: var(--border-color);
+$card-border-color: var(--card-border-color);
+$input-border-color: var(--input-border-color);
+$btn-border-top-color: var(--btn-border-top-color);
+$footer-border-color: var(--footer-border-color);
+
+// Fons
+$bg-color: var(--bg-color);
+$gradient-body: var(--gradient-body);
+$gradient-btn: var(--gradient-btn);
+$gradient-card-title: var(--gradient-card-title);
+$gradient-nav-active: var(--gradient-nav-active);
 $color-primary: #ec8a1b;       // taronja: h2, enllaços, hover
 $color-text: #9a9b9c;          // text general
 

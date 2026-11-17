@@ -36,7 +36,7 @@ body>header {
 
         &:hover {
             color: $cantina-accent;
-            background: rgba($cantina-accent, 0.08);
+            background: color-mix(in srgb, var(--cantina-accent) 8%, transparent);
         }
     }
 }

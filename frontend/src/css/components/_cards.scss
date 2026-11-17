@@ -11,7 +11,7 @@
     background-color: $color-white;
     border: 1px solid $card-border-color;
     border-radius: 8px;
-    filter: drop-shadow(1px 1.732px 1.5px rgba(197, 196, 196, 0.47));
+    filter: drop-shadow(1px 1.732px 1.5px var(--card-shadow-color));
     overflow: hidden;
 
     &__title {

@@ -1,0 +1,40 @@
+/* Tema fosc */
+:root[data-theme='dark'] {
+    // Cantina
+    --cantina-bg: #141210;
+    --cantina-surface: #1f1c19;
+    --cantina-text: #f2ece4;
+    --cantina-muted: #b0a69c;
+    --cantina-accent: #f07a3e;
+    --cantina-accent-hover: #d9682f;
+    --cantina-border: #2e2a26;
+    --cantina-shadow-color: rgba(0, 0, 0, 0.45);
+
+    // Generals
+    --color-primary: #ec8a1b;
+    --color-text: #b0a69c;
+    --color-text-dark: #d6cdc3;
+    --color-title: #f2ece4;
+    --color-white: #1f1c19;       // superfícies (targetes, inputs, hero)
+    --color-lead: #8f867d;
+    --color-card-title: #d6cdc3;
+    --color-btn-text: #f2ece4;
+    --color-nav-active-border: #f07a3e;
+    --color-error: #ff9b78;
+    --color-required: #ff9b78;
+
+    // Bordes
+    --border-color: #2e2a26;
+    --card-border-color: #2e2a26;
+    --input-border-color: #4a443e;
+    --btn-border-top-color: #5a534b;
+    --footer-border-color: #2e2a26;
+
+    // Fons
+    --bg-color: #141210;
+    --gradient-body: linear-gradient(#141210, #141210);
+    --gradient-btn: linear-gradient(#3a352f, #2a2622);
+    --gradient-card-title: linear-gradient(#2a2622, #23201c);
+    --gradient-nav-active: linear-gradient(#f07a3e, #d9682f);
+    --card-shadow-color: rgba(0, 0, 0, 0.6);
+}

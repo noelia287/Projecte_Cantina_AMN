@@ -3,7 +3,7 @@
 
 function layout_inici(string $titol = "Projecte Cantina"): void { ?>
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="ca" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

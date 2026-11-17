@@ -71,6 +71,7 @@ body>header {
         nav {
             display: none;
             width: 100%;
+            border-top: 1px solid $cantina-border; // línia entre el logo i el menú
 
             &.is-open {
                 display: block;
@@ -78,6 +79,22 @@ body>header {
 
             ul {
                 flex-direction: column;
+                align-items: stretch; // cada enllaç ocupa tota l'amplada
+                gap: 0;
+            }
+
+            li+li {
+                border-top: 1px solid $cantina-border; // línia entre enllaços
+            }
+
+            a {
+                display: block;
+                padding: 0.9rem 0.25rem;
+                color: $cantina-text; // text blanc en lloc de gris
+
+                &:hover {
+                    color: $cantina-accent;
+                }
             }
         }
     }

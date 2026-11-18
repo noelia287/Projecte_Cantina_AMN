@@ -63,9 +63,9 @@ body>header {
     }
 }
 
-/* Botó tema: ocult a escriptori */
+/* Botó tema: visible a escriptori i mòbil */
 .theme-toggle {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 44px;

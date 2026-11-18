@@ -3,52 +3,41 @@
 /* Banner de la pàgina de compra: imatge de fons i text a l'esquerra */
 .banner {
     margin-bottom: 2rem;
-    padding: 3rem 2.5rem;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.2)), url('/banner-compra.png') center / cover;
-    border-radius: $cantina-radius;
-    box-shadow: $cantina-shadow;
+    padding: 2.5rem 2rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/banner-compra.png') center / cover;
+    border-radius: 8px;
 
     &__subtitol {
         margin: 0;
-        font-size: 0.85rem;
         font-weight: 700;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
         color: $cantina-accent;
     }
 
     h1 {
-        margin: 1rem 0 1.25rem;
-        font-size: 3rem;
+        margin: 0.5rem 0;
         color: #fff;
     }
 
     // Frase de sota el títol
     h1 + p {
         margin: 0;
-        max-width: 36rem;
         color: #eee;
     }
 
     @media (max-width: $bp-mobile) {
-        padding: 2rem 1.25rem;
-
-        h1 {
-            font-size: 2.2rem;
-        }
+        padding: 1.5rem 1rem;
     }
 }
 
 /* Pàgina de compra: graella de productes
-   escriptori 5 columnes, tablet 2 columnes, mòbil 1 columna */
+   escriptori 4 columnes, tablet 2 columnes, mòbil 1 columna */
 .productes {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
 
     @media (max-width: $bp-tablet) {
         grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
     }
 
     @media (max-width: $bp-mobile) {
@@ -56,35 +45,29 @@
     }
 }
 
-/* Card de producte: foto a dalt, nom, descripció, preu i quantitat a baix */
+/* Card de producte: foto, nom, descripció i preu un sota l'altre */
 .producte {
-    position: relative; // per col·locar l'etiqueta
+    display: flex;
+    flex-direction: column;
     height: 100%;
-    overflow: hidden;
     background: $cantina-surface;
     border: 1px solid $cantina-border;
-    border-radius: $cantina-radius;
-    transition: border-color 0.2s;
-
-    &:hover {
-        border-color: $cantina-accent;
-    }
 
     &__imatge {
-        display: block;
+        order: -1; // la foto sempre a dalt, abans de l'etiqueta
         width: 100%;
         height: 140px;
         object-fit: cover;
     }
 
     &__info {
-        padding: 0.9rem 1rem 1rem;
+        padding: 0.75rem;
     }
 
     &__nom {
         margin: 0;
         padding: 0;
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: $cantina-text;
         border: none;
     }
@@ -100,21 +83,13 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 0.5rem;
     }
 
     &__preu {
-        display: flex;
-        flex-direction: column; // preu antic a sobre del preu d'oferta
-        font-size: 1.2rem;
-        font-weight: 700;
-        line-height: 1.2;
-        white-space: nowrap; // el preu sempre en una línia
         color: $cantina-text;
 
         del {
-            font-size: 0.8rem;
-            font-weight: 400;
+            margin-right: 0.3rem;
             color: $cantina-muted;
         }
     }
@@ -123,20 +98,14 @@
     &__quantitat {
         // [type="button"] perquè guanyi a "form button[type=button]" de style.scss
         button[type="button"] {
-            margin: 0; // treu el marge dels botons del formulari
+            margin: 0;
             padding: 0;
-            width: 2rem;
-            height: 2rem;
+            width: 1.8rem;
+            height: 1.8rem;
             color: #fff;
             background: $cantina-accent;
             border: none;
-            border-radius: 8px;
-            font-weight: 700;
             cursor: pointer;
-
-            &:hover {
-                background: var(--cantina-accent-hover);
-            }
         }
     }
 
@@ -150,60 +119,37 @@
         }
     }
 
-    &__numero {
-        min-width: 1.2rem;
-        font-weight: 700;
-        text-align: center;
-    }
-
-    // Botó "Comprar" de les ofertes de l'inici
+    // Enllaç "Comprar" de les ofertes de l'inici
     &__boto {
-        padding: 0.35rem 0.8rem;
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: #fff;
-        background: $cantina-accent;
-        border-radius: 8px;
-
-        &:hover {
-            background: var(--cantina-accent-hover);
-        }
+        color: $cantina-accent;
+        text-decoration: underline;
     }
 
-    // Etiqueta "Oferta" / "Esgotat" a sobre de la foto
+    // Text "Oferta" / "Esgotat" sota la foto
     &__etiqueta {
-        position: absolute;
-        top: 0.6rem;
-        left: 0.6rem;
-        padding: 0.15rem 0.7rem;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        color: #fff;
-        background: $cantina-accent;
-        border-radius: 999px;
+        padding: 0.5rem 0.75rem 0;
+        font-size: 0.8rem;
+        color: $cantina-accent;
     }
 
-    // Producte esgotat: apagat i en gris
+    // Producte esgotat: apagat
     &--esgotat {
-        opacity: 0.55;
+        opacity: 0.5;
 
-        &:hover {
-            border-color: $cantina-border;
+        .producte__carret {
+            background: $cantina-muted;
         }
 
-        .producte__carret,
         .producte__etiqueta {
-            background: $cantina-muted;
+            color: $cantina-muted;
         }
     }
 }
 
-/* Botó de continuar: a la dreta a escriptori, amplada completa a mòbil */
+/* Botó de continuar a la dreta */
 .compra__accions {
-    display: flex;
-    justify-content: flex-end;
     margin-top: 1.5rem;
+    text-align: right;
 
     button {
         margin: 0;
@@ -211,7 +157,7 @@
 
     @media (max-width: $bp-mobile) {
         button {
-            flex: 1;
+            width: 100%;
         }
     }
 }

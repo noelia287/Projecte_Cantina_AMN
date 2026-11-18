@@ -3,16 +3,16 @@
 /* Pàgina d'inici: ofertes del dia sota la imatge
    escriptori 3 columnes, tablet 2 columnes, mòbil 1 columna */
 .ofertes {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
 
     > h2 { // només el títol "Ofertes del dia", no el nom de les targetes
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
     }
 
     &__llista {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
+        gap: 1rem;
 
         @media (max-width: $bp-tablet) {
             grid-template-columns: repeat(2, 1fr);
@@ -26,25 +26,15 @@
 
 /* Banner de l'inici: com el de compra però amb la foto de la cantina */
 .banner--inici {
-    padding: 5rem 2.5rem;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.1)), url('/hero.png') center / cover;
-
-    @media (max-width: $bp-mobile) {
-        padding: 3rem 1.25rem;
-    }
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/hero.png') center / cover;
 }
 
-/* Botó taronja del banner */
+/* Botó del banner */
 .banner__boto {
     display: inline-block;
-    margin-top: 1.75rem;
-    padding: 0.65rem 1.4rem;
-    font-weight: 700;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
     color: #fff;
     background: $cantina-accent;
-    border-radius: 999px;
-
-    &:hover {
-        background: var(--cantina-accent-hover);
-    }
+    border-radius: 4px;
 }

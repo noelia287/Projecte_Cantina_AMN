@@ -2,6 +2,8 @@
 <?php
 session_start();
 
+require_once '../includes/funcions.php';
+
 $titol = "Projecte Cantina";
 
 $missatge = "";
@@ -11,7 +13,7 @@ $error = "";
 
 if (isset($_POST['quantitats'])) {
 
-    $productes = json_decode(file_get_contents('../data/productes.json'), true);
+    $productes = llegir_productes();
 
     $compra = [];
     $total = 0;
@@ -23,11 +25,14 @@ if (isset($_POST['quantitats'])) {
 
         if ($quantitat > 0 && $quantitat <= 20 && $producte['disponible']) {
 
-            $subtotal = $producte['preu'] * $quantitat;
+            // Si el producte està d'oferta es cobra el preu d'oferta
+            $preu = $producte['preu_oferta'] ?? $producte['preu'];
+
+            $subtotal = $preu * $quantitat;
 
             $compra[] = [
                 'nom' => $producte['nom'],
-                'preu' => $producte['preu'],
+                'preu' => $preu,
                 'quantitat' => $quantitat,
                 'subtotal' => $subtotal
             ];
@@ -164,7 +169,7 @@ layout_inici($titol);
                 <strong>DETALL DE LA COMPRA</strong>
             </p>
 
-            <table class="taula-tiquet">
+            <table class="taula taula-tiquet">
 
                 <tr>
                     <th>Producte</th>
@@ -184,7 +189,7 @@ layout_inici($titol);
                         </td>
 
                         <td>
-                            <?php echo number_format($producte['subtotal'], 2, ',', '.'); ?> €
+                            <?php echo format_preu($producte['subtotal']); ?>
                         </td>
                     </tr>
 
@@ -198,7 +203,7 @@ layout_inici($titol);
                 <span>TOTAL</span>
 
                 <span>
-                    <?php echo number_format($tiquet['total'], 2, ',', '.'); ?> €
+                    <?php echo format_preu($tiquet['total']); ?>
                 </span>
             </div>
 
@@ -219,11 +224,16 @@ layout_inici($titol);
 
 <?php elseif (isset($_SESSION['compra']) && count($_SESSION['compra']) > 0): ?>
 
+    <div class="finalitzacio">
+
     <!-- RESUM DE LA COMPRA -->
+
+    <section class="finalitzacio__resum">
 
     <h2>Resum de la compra</h2>
 
-    <table border="1" cellpadding="10">
+    <div class="taula-scroll">
+    <table class="taula">
 
         <tr>
             <th>Producte</th>
@@ -240,7 +250,7 @@ layout_inici($titol);
                 </td>
 
                 <td>
-                    <?php echo number_format($producte['preu'], 2, ',', '.'); ?> €
+                    <?php echo format_preu($producte['preu']); ?>
                 </td>
 
                 <td>
@@ -248,22 +258,25 @@ layout_inici($titol);
                 </td>
 
                 <td>
-                    <?php echo number_format($producte['subtotal'], 2, ',', '.'); ?> €
+                    <?php echo format_preu($producte['subtotal']); ?>
                 </td>
             </tr>
 
         <?php endforeach; ?>
 
     </table>
+    </div>
 
-    <h3>
-        Total:
-        <?php echo number_format($_SESSION['total'], 2, ',', '.'); ?> €
-    </h3>
+    <p class="finalitzacio__total">
+        <strong>Total:</strong>
+        <strong><?php echo format_preu($_SESSION['total']); ?></strong>
+    </p>
 
-    <hr>
+    </section>
 
     <!-- FORMULARI -->
+
+    <section class="finalitzacio__dades">
 
     <h2>Dades de l'usuari</h2>
 
@@ -291,15 +304,21 @@ layout_inici($titol);
         <input id="tel" name="tel">
         <p class="error" id="error-tel"></p>
 
-        <button type="submit" name="finalitzar" value="1">
-            Envia
-        </button>
+        <div class="formulari__accions">
+            <button type="submit" name="finalitzar" value="1">
+                Envia
+            </button>
 
-        <button type="reset" id="reseteja">
-            Reseteja
-        </button>
+            <button type="reset" id="reseteja">
+                Reseteja
+            </button>
+        </div>
 
     </form>
+
+    </section>
+
+    </div>
 
 
 

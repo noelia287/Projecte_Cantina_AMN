@@ -1,0 +1,50 @@
+@use '../abstracts' as *;
+
+/* Pàgina d'inici: ofertes del dia sota la imatge
+   escriptori 3 columnes, tablet 2 columnes, mòbil 1 columna */
+.ofertes {
+    margin-top: 2.5rem;
+
+    > h2 { // només el títol "Ofertes del dia", no el nom de les targetes
+        margin-bottom: 1.5rem;
+    }
+
+    &__llista {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+
+        @media (max-width: $bp-tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (max-width: $bp-mobile) {
+            grid-template-columns: 1fr;
+        }
+    }
+}
+
+/* Banner de l'inici: com el de compra però amb la foto de la cantina */
+.banner--inici {
+    padding: 5rem 2.5rem;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.1)), url('/hero.png') center / cover;
+
+    @media (max-width: $bp-mobile) {
+        padding: 3rem 1.25rem;
+    }
+}
+
+/* Botó taronja del banner */
+.banner__boto {
+    display: inline-block;
+    margin-top: 1.75rem;
+    padding: 0.65rem 1.4rem;
+    font-weight: 700;
+    color: #fff;
+    background: $cantina-accent;
+    border-radius: 999px;
+
+    &:hover {
+        background: var(--cantina-accent-hover);
+    }
+}

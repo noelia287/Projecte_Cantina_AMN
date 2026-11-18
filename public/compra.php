@@ -1,76 +1,33 @@
-
 <?php
 $titol = "Projecte Cantina";
-?>
-<?php
-require_once '../includes/layout.php';
-layout_inici($titol);
 
-// Llegir el JSON
-$fitxer = '../data/productes.json';
-$productes = json_decode(file_get_contents($fitxer), true);
+require_once '../includes/layout.php';
+require_once '../includes/funcions.php';
+
+$productes = llegir_productes();
+
+layout_inici($titol);
 ?>
 <main>
 
-<h1>Comprar productes</h1>
+<!-- Banner amb la imatge de fons -->
+<section class="banner">
+    <p class="banner__subtitol">La Cantina</p>
+    <h1>Productes</h1>
+    <p>Descobreix els nostres productes i tria el que més t'agradi.</p>
+</section>
 
 <form action="finalitzacio.php" method="POST">
 
-    <table border="1" cellpadding="10">
-
-        <tr>
-            <th>Producte</th>
-            <th>Descripció</th>
-            <th>Preu</th>
-            <th>Disponibilitat</th>
-            <th>Quantitat</th>
-        </tr>
-
+    <ul class="productes">
         <?php foreach ($productes as $producte): ?>
-
-            <tr>
-                <td><?php echo htmlspecialchars($producte['nom']); ?></td>
-
-                <td><?php echo htmlspecialchars($producte['descripcio']); ?></td>
-
-                <td><?php echo number_format($producte['preu'], 2, ',', '.'); ?> €</td>
-
-                <td>
-                    <?php
-                    if ($producte['disponible']) {
-                        echo "Disponible";
-                    } else {
-                        echo "Esgotat";
-                    }
-                    ?>
-                </td>
-
-                <td>
-                    <?php if ($producte['disponible']): ?>
-
-                        <input
-                            type="number"
-                            name="quantitats[<?php echo $producte['id']; ?>]"
-                            min="0"
-                            max="20"
-                            value="0"
-                        >
-
-                    <?php else: ?>
-
-                        <input type="number" value="0" disabled>
-
-                    <?php endif; ?>
-                </td>
-            </tr>
-
+            <li><?php targeta_producte($producte); ?></li>
         <?php endforeach; ?>
+    </ul>
 
-    </table>
-
-    <br>
-
-    <button type="submit">Continuar amb la compra</button>
+    <div class="compra__accions">
+        <button type="submit">Continuar amb la compra</button>
+    </div>
 
 </form>
 

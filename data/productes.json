@@ -5,7 +5,7 @@
         "descripcio": "Pa rústic",
         "preu": 2.5,
         "disponible": true,
-        "icona": "fa-bread-slice",
+        "unitats": 10,
         "imatge": "bocata.jpeg"
     },
     {
@@ -14,7 +14,7 @@
         "descripcio": "Llauna 330 ml",
         "preu": 1.5,
         "disponible": true,
-        "icona": "fa-bottle-water",
+        "unitats": 30,
         "imatge": "cocacola.jpeg",
         "preu_oferta": 1.2
     },
@@ -24,7 +24,7 @@
         "descripcio": "Porció",
         "preu": 2.2,
         "disponible": true,
-        "icona": "fa-pizza-slice",
+        "unitats": 0,
         "imatge": "pizza.jpeg"
     },
     {
@@ -33,7 +33,7 @@
         "descripcio": "Tassa",
         "preu": 1.3,
         "disponible": true,
-        "icona": "fa-mug-hot",
+        "unitats": 40,
         "imatge": "cafe.jpeg",
         "preu_oferta": 1.0
     },
@@ -43,7 +43,7 @@
         "descripcio": "Ampolla 500 ml",
         "preu": 1.0,
         "disponible": true,
-        "icona": "fa-bottle-water",
+        "unitats": 100,
         "imatge": "aigua.jpeg"
     },
     {
@@ -52,7 +52,7 @@
         "descripcio": "Unitat",
         "preu": 1.2,
         "disponible": true,
-        "icona": "fa-bread-slice",
+        "unitats": 4,
         "imatge": "croissant.jpeg"
     },
     {
@@ -61,7 +61,7 @@
         "descripcio": "Unitat",
         "preu": 1.2,
         "disponible": true,
-        "icona": "fa-cookie",
+        "unitats": 8,
         "imatge": "donut.jpeg"
     },
     {
@@ -70,7 +70,7 @@
         "descripcio": "Pa de frankfurt",
         "preu": 2.5,
         "disponible": true,
-        "icona": "fa-hotdog",
+        "unitats": 2,
         "imatge": "hotdog.jpeg"
     },
     {
@@ -79,7 +79,7 @@
         "descripcio": "Barreta 41,5 g",
         "preu": 1.2,
         "disponible": true,
-        "icona": "fa-cookie",
+        "unitats": 0,
         "imatge": "kitkat.jpeg"
     },
     {
@@ -88,7 +88,7 @@
         "descripcio": "Bossa 45 g",
         "preu": 1.2,
         "disponible": true,
-        "icona": "fa-cookie",
+        "unitats": 10,
         "imatge": "lays.jpeg"
     }
 ]

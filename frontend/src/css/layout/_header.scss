@@ -63,6 +63,28 @@ body>header {
     }
 }
 
+/* Botó tema: ocult a escriptori */
+.theme-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    font-size: 1.3rem;
+    line-height: 1;
+    color: $cantina-text;
+    background: none;
+    border: 1px solid $cantina-border;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+        border-color: $cantina-accent;
+    }
+}
+
 /* Mòbil: menú hamburguesa */
 @media (max-width: $bp-mobile) {
     body>header {
@@ -100,6 +122,10 @@ body>header {
     }
 
     .menu-toggle {
+        display: flex;
+    }
+
+    .theme-toggle {
         display: flex;
     }
 }

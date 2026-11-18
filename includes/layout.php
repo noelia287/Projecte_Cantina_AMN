@@ -10,6 +10,7 @@ function layout_inici(string $titol = "Projecte Cantina"): void { ?>
     <title><?= htmlspecialchars($titol) ?></title>
     <script type="module" src="http://localhost:5173/@vite/client"></script>
     <script type="module" src="http://localhost:5173/src/js/main.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" type="image/png" href="../frontend/public/logo.png">
 </head>
 <body>

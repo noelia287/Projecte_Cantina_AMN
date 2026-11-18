@@ -1,0 +1,39 @@
+@use '../abstracts' as *;
+
+.taula-productes {
+    width: 100%;
+    border-collapse: collapse;
+    background: none;
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    th {
+        background: $gradient-card-title;
+        color: $color-text-dark;
+    }
+
+    img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 6px;
+        display: block;
+    }
+
+    .accions { white-space: nowrap; }
+
+    .btn-accio {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 6px;
+        color: $color-white;
+        text-decoration: none;
+
+        &.editar { background: $color-primary; }
+        &.eliminar { background: var(--color-error); }
+    }
+}

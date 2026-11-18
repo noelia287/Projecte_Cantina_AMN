@@ -35,16 +35,11 @@ $gradient-body: var(--gradient-body);
 $gradient-btn: var(--gradient-btn);
 $gradient-card-title: var(--gradient-card-title);
 $gradient-nav-active: var(--gradient-nav-active);
+$color-primary: #ec8a1b;       // taronja: h2, enllaços, hover
+$color-text: #9a9b9c;          // text general
 
 // Tipografia
 $font-title: 'Century Gothic', 'Questrial', sans-serif;
-$font-body: Arial, Helvetica, sans-serif;
-$font-size-base: 12px;
-
-// Mides
-$page-max-width: 1240px;
-$page-padding: 15px;
-$hero-image-width: 603px; 
 
 // Breakpoints
 $bp-tablet: 991px;

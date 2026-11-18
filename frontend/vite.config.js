@@ -15,6 +15,11 @@ export default defineConfig({
     // Permet que una pÃ gina servida per Apache/PHP pugui
     // carregar recursos del servidor de desenvolupament Vite.
     cors: true,
+
+    // Origen del servidor de Vite.
+    // Fa que els recursos del CSS (com les fonts de les icones)
+    // es demanin a Vite i no a Apache.
+    origin: 'http://localhost:5173',
   },
 
   // ConfiguraciÃ³ de la compilaciÃ³ per a producciÃ³.

@@ -35,7 +35,7 @@ if (isset($_POST['finalitzar'])) {
 
         $error = "El correu electrònic no és correcte.";
 
-    } elseif (!isset($_SESSION['compra']) || count($_SESSION['compra']) == 0) {
+    } elseif (!hi_ha_compra()) {
 
         $error = "No hi ha cap producte seleccionat.";
 
@@ -54,17 +54,10 @@ if (isset($_POST['finalitzar'])) {
             'total' => $_SESSION['total']
         ];
 
-        // CREAR LA CARPETA
+        // Si el tiquet es guarda bé, es resten les unitats, es mostra el tiquet i es buida la compra de la sessió
+        if (guardar_tiquet($tiquet)) {
 
-        if (!is_dir('../comandes')) {
-            mkdir('../comandes', 0755, true);
-        }
-
-        // GUARDAR EL TIQUET
-
-        $fitxer = '../comandes/tiquet_' . $tiquet['numero'] . '.json';
-
-        if (file_put_contents($fitxer, json_encode($tiquet, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)) !== false) {
+            restar_unitats($tiquet['productes']);
 
             $_SESSION['tiquet'] = $tiquet;
 
@@ -93,99 +86,13 @@ layout_inici($titol);
 
 <?php if ($missatge != ""): ?>
 
+    <!-- MISSATGE D'ÈXIT -->
+    <p class="exit no-imprimir"><?php echo htmlspecialchars($missatge); ?></p>
+
     <!-- TIQUET FINAL -->
-
-    <?php $tiquet = $_SESSION['tiquet']; ?>
-
     <div class="zona-tiquet">
 
-        <div class="tiquet">
-
-            <div class="tiquet-capcalera">
-                <h2>CANTINA</h2>
-                <p>TIQUET DE COMPRA</p>
-                <p>Gràcies per la vostra visita!</p>
-            </div>
-
-            <hr>
-
-            <p>
-                <strong>Ticket:</strong>
-                <?php echo htmlspecialchars($tiquet['numero']); ?>
-            </p>
-
-            <p>
-                <strong>Data:</strong>
-                <?php echo htmlspecialchars($tiquet['data']); ?>
-            </p>
-
-            <hr>
-
-            <p><strong>CLIENT</strong></p>
-
-            <p>
-                <?php echo htmlspecialchars($tiquet['nom'] . ' ' . $tiquet['cognom']); ?>
-            </p>
-
-            <p>
-                <?php echo htmlspecialchars($tiquet['email']); ?>
-            </p>
-
-            <p>
-                <?php echo htmlspecialchars($tiquet['telefon']); ?>
-            </p>
-
-            <hr>
-
-            <p class="text-centre">
-                <strong>DETALL DE LA COMPRA</strong>
-            </p>
-
-            <table class="taula taula-tiquet">
-
-                <tr>
-                    <th>Producte</th>
-                    <th>U.</th>
-                    <th>Preu</th>
-                </tr>
-
-                <?php foreach ($tiquet['productes'] as $producte): ?>
-
-                    <tr>
-                        <td>
-                            <?php echo htmlspecialchars($producte['nom']); ?>
-                        </td>
-
-                        <td>
-                            <?php echo $producte['quantitat']; ?>
-                        </td>
-
-                        <td>
-                            <?php echo format_preu($producte['subtotal']); ?>
-                        </td>
-                    </tr>
-
-                <?php endforeach; ?>
-
-            </table>
-
-            <hr>
-
-            <div class="total-tiquet">
-                <span>TOTAL</span>
-
-                <span>
-                    <?php echo format_preu($tiquet['total']); ?>
-                </span>
-            </div>
-
-            <hr>
-
-            <div class="tiquet-peu">
-                <p>Gràcies per comprar a la nostra cantina!</p>
-            </div>
-
-        </div>
+        <?php mostrar_tiquet($_SESSION['tiquet']); ?>
 
         <p class="no-imprimir">
             <a href="compra.php">Tornar a comprar</a>
@@ -193,8 +100,7 @@ layout_inici($titol);
 
     </div>
 
-
-<?php elseif (isset($_SESSION['compra']) && count($_SESSION['compra']) > 0): ?>
+<?php elseif (hi_ha_compra()): ?>
 
     <div class="finalitzacio">
 

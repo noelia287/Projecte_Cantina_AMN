@@ -30,7 +30,7 @@
 }
 
 /* Pàgina de compra: graella de productes
-   escriptori 4 columnes, tablet 2 columnes, mòbil 1 columna */
+   escriptori 5 columnes, tablet 2 columnes, mòbil 1 columna */
 .productes {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -47,14 +47,11 @@
 
 /* Card de producte: foto, nom, descripció i preu un sota l'altre */
 .producte {
-    display: flex;
-    flex-direction: column;
     height: 100%;
     background: $cantina-surface;
     border: 1px solid $cantina-border;
 
     &__imatge {
-        order: -1; // la foto sempre a dalt, abans de l'etiqueta
         width: 100%;
         height: 140px;
         object-fit: cover;
@@ -85,13 +82,9 @@
         justify-content: space-between;
     }
 
-    &__preu {
-        color: $cantina-text;
-
-        del {
-            margin-right: 0.3rem;
-            color: $cantina-muted;
-        }
+    &__preu del {
+        margin-right: 0.3rem;
+        color: $cantina-muted;
     }
 
     // Carret i selector - quantitat +
@@ -105,7 +98,6 @@
             color: #fff;
             background: $cantina-accent;
             border: none;
-            cursor: pointer;
         }
     }
 
@@ -127,6 +119,7 @@
 
     // Text "Oferta" / "Esgotat" sota la foto
     &__etiqueta {
+        display: block;
         padding: 0.5rem 0.75rem 0;
         font-size: 0.8rem;
         color: $cantina-accent;

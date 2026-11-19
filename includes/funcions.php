@@ -50,13 +50,13 @@ function targeta_producte(array $producte, bool $amb_carret = true): void {
     ?>
     <article class="<?= $classe ?>">
 
+        <img class="producte__imatge" src="../frontend/public/<?= htmlspecialchars($producte['imatge']) ?>" alt="<?= htmlspecialchars($producte['nom']) ?>">
+
         <?php if (!$disponible): ?>
             <span class="producte__etiqueta">Esgotat</span>
         <?php elseif ($oferta > 0): ?>
             <span class="producte__etiqueta">Oferta</span>
         <?php endif; ?>
-
-        <img class="producte__imatge" src="../frontend/public/<?= htmlspecialchars($producte['imatge']) ?>" alt="<?= htmlspecialchars($producte['nom']) ?>">
 
         <div class="producte__info">
             <h2 class="producte__nom"><?= htmlspecialchars($producte['nom']) ?></h2>

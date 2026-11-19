@@ -33,7 +33,7 @@
    escriptori 4 columnes, tablet 2 columnes, mòbil 1 columna */
 .productes {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
 
     @media (max-width: $bp-tablet) {

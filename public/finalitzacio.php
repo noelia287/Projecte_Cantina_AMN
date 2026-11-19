@@ -1,48 +1,20 @@
-
 <?php
 session_start();
 
 require_once '../includes/funcions.php';
+require_once '../includes/funcions_compra.php';
 
 $titol = "Projecte Cantina";
 
 $missatge = "";
 $error = "";
 
-// REBRE LES DADES DE LA COMPRA
 
+// Si venim de compra.php, calcula la compra i la guarda a la sessió per quan s'enviï el formulari de dades
 if (isset($_POST['quantitats'])) {
-
-    $productes = llegir_productes();
-
-    $compra = [];
-    $total = 0;
-
-    foreach ($productes as $producte) {
-
-        $id = $producte['id'];
-        $quantitat = (int)($_POST['quantitats'][$id] ?? 0);
-
-        if ($quantitat > 0 && $quantitat <= 20 && $producte['disponible']) {
-
-            // Si el producte està d'oferta es cobra el preu d'oferta
-            $preu = $producte['preu_oferta'] ?? $producte['preu'];
-
-            $subtotal = $preu * $quantitat;
-
-            $compra[] = [
-                'nom' => $producte['nom'],
-                'preu' => $preu,
-                'quantitat' => $quantitat,
-                'subtotal' => $subtotal
-            ];
-
-            $total += $subtotal;
-        }
-    }
-
+    $compra = calcular_compra($_POST['quantitats']);
     $_SESSION['compra'] = $compra;
-    $_SESSION['total'] = $total;
+    $_SESSION['total'] = calcular_total($compra);
 }
 
 

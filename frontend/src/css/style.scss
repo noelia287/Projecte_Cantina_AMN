@@ -48,21 +48,10 @@ input {
     color: var(--color-error);
     font-size: 0.85rem;
     margin: 0.35rem 0 0;
-    padding: 0.4rem 0.65rem;
-    background-color: color-mix(in srgb, var(--cantina-accent) 10%, transparent);
-    border-radius: 4px;
 }
 
 .error:empty {
     display: none;
-}
-
-// Missatge d'èxit en acabar la compra
-.exit {
-    padding: 0.6rem 0.9rem;
-    border-left: 4px solid $cantina-accent;
-    background-color: color-mix(in srgb, var(--cantina-accent) 10%, transparent);
-    border-radius: 4px;
 }
 
 form button {

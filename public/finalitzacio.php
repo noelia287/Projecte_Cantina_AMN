@@ -6,15 +6,16 @@ require_once '../includes/funcions_compra.php';
 
 $titol = "Projecte Cantina";
 
-$missatge = "";
 $error = "";
 
 
-// Si venim de compra.php, calcula la compra i la guarda a la sessió per quan s'enviï el formulari de dades
+// Si venim de compra.php, guarda la compra a la sessió i torna a carregar la pàgina amb GET
 if (isset($_POST['quantitats'])) {
-    $compra = calcular_compra($_POST['quantitats']);
-    $_SESSION['compra'] = $compra;
-    $_SESSION['total'] = calcular_total($compra);
+    $_SESSION['compra'] = calcular_compra($_POST['quantitats']);
+    unset($_SESSION['tiquet']);
+
+    header('Location: finalitzacio.php');
+    exit;
 }
 
 
@@ -27,19 +28,15 @@ if (isset($_POST['finalitzar'])) {
     $email = trim($_POST['email'] ?? '');
     $tel = trim($_POST['tel'] ?? '');
 
-    if ($nom == "" || $email == "" || $tel == "") {
+    $error = validar_dades($nom, $email, $tel);
 
-        $error = "Omple tots els camps obligatoris.";
-
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-
-        $error = "El correu electrònic no és correcte.";
-
-    } elseif (!hi_ha_compra()) {
-
+    // Encara que les dades estiguin bé, cal que hi hagi alguna cosa a la compra
+    if ($error == "" && !hi_ha_compra()) {
         $error = "No hi ha cap producte seleccionat.";
+    }
 
-    } else {
+    // Si no hi ha cap error, es crea i es guarda el tiquet
+    if ($error == "") {
 
         // CREAR EL TIQUET
 
@@ -51,20 +48,19 @@ if (isset($_POST['finalitzar'])) {
             'email' => $email,
             'telefon' => $tel,
             'productes' => $_SESSION['compra'],
-            'total' => $_SESSION['total']
+            'total' => calcular_total($_SESSION['compra'])
         ];
 
-        // Si el tiquet es guarda bé, es resten les unitats, es mostra el tiquet i es buida la compra de la sessió
+        // Si el tiquet es guarda bé, es resten les unitats, es guarda el tiquet a la sessió i es buida la compra
         if (guardar_tiquet($tiquet)) {
 
             restar_unitats($tiquet['productes']);
 
             $_SESSION['tiquet'] = $tiquet;
-
             unset($_SESSION['compra']);
-            unset($_SESSION['total']);
 
-            $missatge = "La compra s'ha realitzat correctament!";
+            header('Location: finalitzacio.php');
+            exit;
 
         } else {
 
@@ -84,10 +80,10 @@ layout_inici($titol);
 <h1>Finalització de la compra</h1>
 
 
-<?php if ($missatge != ""): ?>
+<?php if (isset($_SESSION['tiquet'])): ?>
 
     <!-- MISSATGE D'ÈXIT -->
-    <p class="exit no-imprimir"><?php echo htmlspecialchars($missatge); ?></p>
+    <p class="exit no-imprimir">La compra s'ha realitzat correctament!</p>
 
     <!-- TIQUET FINAL -->
     <div class="zona-tiquet">
@@ -124,19 +120,19 @@ layout_inici($titol);
 
             <tr>
                 <td>
-                    <?php echo htmlspecialchars($producte['nom']); ?>
+                    <?= htmlspecialchars($producte['nom']) ?>
                 </td>
 
                 <td>
-                    <?php echo format_preu($producte['preu']); ?>
+                    <?= format_preu($producte['preu']) ?>
                 </td>
 
                 <td>
-                    <?php echo $producte['quantitat']; ?>
+                    <?= $producte['quantitat'] ?>
                 </td>
 
                 <td>
-                    <?php echo format_preu($producte['subtotal']); ?>
+                    <?= format_preu($producte['subtotal']) ?>
                 </td>
             </tr>
 
@@ -147,7 +143,7 @@ layout_inici($titol);
 
     <p class="finalitzacio__total">
         <strong>Total:</strong>
-        <strong><?php echo format_preu($_SESSION['total']); ?></strong>
+        <strong><?= format_preu(calcular_total($_SESSION['compra'])) ?></strong>
     </p>
 
     </section>
@@ -160,7 +156,7 @@ layout_inici($titol);
 
     <?php if ($error != ""): ?>
         <p class="error">
-            <?php echo htmlspecialchars($error); ?>
+            <?= htmlspecialchars($error) ?>
         </p>
     <?php endif; ?>
 

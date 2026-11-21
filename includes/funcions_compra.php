@@ -52,20 +52,12 @@ function calcular_total(array $compra): float {
 }
 
 // Afegeix el tiquet al final de comandes.txt, una comanda per línia
+// LOCK_EX bloqueja el fitxer mentre s'escriu, perquè dues compres alhora no el barregin
 function guardar_tiquet(array $tiquet): bool {
-    $fitxer = fopen('../data/comandes.txt', 'a');
-
-    // Si no es pot obrir el fitxer (per exemple, per permisos), no es guarda
-    if ($fitxer === false) {
-        return false;
-    }
-
     $linia = json_encode($tiquet, JSON_UNESCAPED_UNICODE) . "\n";
-    $escrit = fwrite($fitxer, $linia);
-    fclose($fitxer);
 
-    // Si no s'ha pogut escriure, fwrite retorna false
-    return $escrit !== false;
+    // Si no s'ha pogut escriure (per exemple, per permisos), file_put_contents retorna false
+    return file_put_contents(RUTA_COMANDES, $linia, FILE_APPEND | LOCK_EX) !== false;
 }
 
 // Resta al JSON les unitats que s'han comprat de cada producte
@@ -81,16 +73,42 @@ function restar_unitats(array $compra): void {
         }
     }
 
-    $fitxer = fopen('../data/productes.json', 'w');
+    // Torna a escriure tot el JSON amb les unitats noves i el mateix format (1.0 es queda 1.0)
+    // LOCK_EX bloqueja el fitxer mentre s'escriu
+    $json = json_encode($productes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION) . "\n";
+    file_put_contents(RUTA_PRODUCTES, $json, LOCK_EX);
+}
 
-    // Si no es pot obrir el fitxer, no es resta res
-    if ($fitxer === false) {
-        return;
+// Comprova les dades del formulari i retorna el missatge d'error, o "" si tot és correcte
+function validar_dades(string $nom, string $email, string $tel): string {
+
+    // El nom és obligatori
+    if ($nom == "") {
+        return "El nom és obligatori.";
     }
 
-    // Torna a escriure tot el JSON amb les unitats noves i el mateix format (1.0 es queda 1.0)
-    fwrite($fitxer, json_encode($productes, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION) . "\n");
-    fclose($fitxer);
+    // L'email és obligatori i ha de tenir format d'email (filter_var és la funció de PHP per validar emails)
+    if ($email == "") {
+        return "L'email és obligatori.";
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return "L'email no és correcte (exemple: nom@gmail.com).";
+    }
+
+    // El telèfon, sense espais, ha de tenir 9 caràcters i tots han de ser xifres (ctype_digit: només 0-9)
+    $tel_sense_espais = str_replace(' ', '', $tel);
+
+    if (strlen($tel_sense_espais) != 9) {
+        return "El telèfon ha de tenir 9 xifres.";
+    }
+
+    if (!ctype_digit($tel_sense_espais)) {
+        return "El telèfon només pot tenir números.";
+    }
+
+    // Si arriba aquí, tot és correcte
+    return "";
 }
 
 // Retorna true si a la sessió hi ha una compra amb algun producte

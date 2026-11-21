@@ -45,8 +45,11 @@
     }
 }
 
-/* Card de producte: foto, nom, descripció i preu un sota l'altre */
+/* Card de producte: foto, nom, descripció i preu un sota l'altre
+   en columna perquè el preu i el carret quedin sempre a baix, encara que hi hagi "Oferta" o "Esgotat" */
 .producte {
+    display: flex;
+    flex-direction: column;
     height: 100%;
     background: $cantina-surface;
     border: 1px solid $cantina-border;
@@ -57,7 +60,11 @@
         object-fit: cover;
     }
 
+    // Ocupa tot l'espai que queda sota la foto
     &__info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
         padding: 0.75rem;
     }
 
@@ -75,8 +82,9 @@
         color: $cantina-muted;
     }
 
-    // Preu a l'esquerra i quantitat a la dreta
+    // Preu a l'esquerra i quantitat a la dreta, enganxat a baix de la targeta
     &__compra {
+        margin-top: auto;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -152,5 +160,58 @@
         button {
             width: 100%;
         }
+    }
+}
+
+/* Tiquet en viu: a la dreta, sobre el botó de continuar
+   mòbil: ocupa tota l'amplada */
+.tiquet-viu {
+    max-width: 380px;
+    margin: 2rem 0 0 auto;
+    padding: 1.5rem;
+    font-family: 'Courier New', monospace;
+    background: $cantina-surface;
+    border: 1px solid $cantina-muted;
+    border-radius: 4px;
+
+    h2 {
+        margin: 0 0 1rem;
+        border: none;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    // Quantitat i nom a l'esquerra, subtotal a la dreta
+    li {
+        display: flex;
+        gap: 0.3rem;
+        margin-bottom: 0.25rem;
+
+        // Amb display: flex el hidden ja no amaga la línia, per això cal tornar-ho a posar
+        &[hidden] {
+            display: none;
+        }
+    }
+
+    .linia__subtotal {
+        margin-left: auto;
+    }
+
+    // "Total:" a l'esquerra i el preu a la dreta, separats per una línia discontínua
+    p {
+        display: flex;
+        justify-content: space-between;
+        margin: 0.75rem 0 0;
+        padding-top: 0.75rem;
+        font-weight: 700;
+        border-top: 1px dashed $cantina-border;
+    }
+
+    @media (max-width: $bp-mobile) {
+        max-width: none;
     }
 }

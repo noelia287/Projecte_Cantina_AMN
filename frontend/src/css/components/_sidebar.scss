@@ -1,0 +1,52 @@
+@use '../abstracts' as *;
+
+/* Mentre el panell està obert, la pàgina no fa scroll (només el panell) */
+body:has(.sidebar) {
+    overflow: hidden;
+}
+
+/* Panell lateral dret per editar un producte */
+.sidebar {
+    overscroll-behavior: contain; // el scroll del panell no "passa" a la pàgina
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 350px;
+    max-width: 100%;
+    overflow-y: auto;
+    z-index: 10000;
+    padding: 1rem;
+
+    // Colors amb variables dels temes: canvien sols en passar de clar a fosc
+    background: $cantina-surface;
+    color: $cantina-text;
+    border-left: 1px solid $cantina-border;
+    box-shadow: $cantina-shadow;
+
+    &__capcalera {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    &__tancar {
+        font-size: 1.5rem;
+        line-height: 1;
+        color: $cantina-muted;
+        text-decoration: none;
+    }
+
+    &__formulari {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    &__accions {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+}

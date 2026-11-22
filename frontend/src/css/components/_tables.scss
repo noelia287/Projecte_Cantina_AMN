@@ -54,7 +54,12 @@
         display: block;
     }
 
-    .accions { white-space: nowrap; }
+    .accions {
+        white-space: nowrap;
+
+        // El formulari d'eliminar es queda al costat del botó d'editar
+        form { display: inline; }
+    }
 
     .btn-accio {
         display: inline-block;
@@ -65,5 +70,26 @@
 
         &.editar { background: var(--color-primary); }
         &.eliminar { background: var(--color-error); }
+    }
+}
+
+/* Capçalera de l'administració: títol i botó d'afegir producte */
+.admin__capcalera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.admin__afegir {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background: $cantina-accent;
+    color: #fff;
+    white-space: nowrap;
+
+    &:hover {
+        background: $cantina-accent-hover;
     }
 }

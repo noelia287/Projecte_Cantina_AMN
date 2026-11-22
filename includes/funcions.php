@@ -148,3 +148,51 @@ function targeta_producte(array $producte, bool $amb_carret = true): void {
     </article>
     <?php
 }
+
+// FUNCIÓ: Cerca el producte que busquem entre tots per el seu id
+function buscar_producte(array $productes, int $id): ?array {
+    foreach (llegir_productes() as $producte) {
+        if ((int)$producte['id'] == $id) {
+            return $producte;
+        }
+    }
+    return null;
+}
+
+
+// FUNCIÓ: GUARDAR ELS PRODUCTES
+// Escriu tot el JSON de productes amb el mateix format de sempre (1.0 es queda 1.0)
+// LOCK_EX bloqueja el fitxer mentre s'escriu
+function guardar_productes(array $productes): bool {
+    // Que json_encode escrigui els preus normals (1.2 i no 1.19999...)
+    ini_set('serialize_precision', -1);
+
+    $json = json_encode(array_values($productes), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION) . "\n";
+
+    $guardat = file_put_contents(RUTA_PRODUCTES, $json, LOCK_EX) !== false;
+
+    // PHP guarda la mida del fitxer en memòria; s'esborra perquè la propera lectura vegi la mida nova
+    clearstatcache();
+
+    return $guardat;
+}
+
+
+// FUNCIÓ: ELIMINAR UN PRODUCTE
+// Treu del JSON el producte amb aquest id. Retorna false si no existeix o no s'ha pogut guardar
+function eliminar_producte(int $id): bool {
+    $productes = llegir_productes();
+
+    if (buscar_producte($productes, $id) === null) {
+        return false;
+    }
+
+    $restants = [];
+    foreach ($productes as $producte) {
+        if ($producte['id'] !== $id) {
+            array_push($restants, $producte);
+        }
+    }
+
+    return guardar_productes($restants);
+}

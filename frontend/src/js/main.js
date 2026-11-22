@@ -27,28 +27,29 @@ if (toggle && menu) {
 }
 
 // Tema clar/fosc
-const themeToggle = document.querySelector('.theme-toggle')
-const root = document.documentElement
+const html = document.documentElement;
+const themeButton = document.querySelector("#theme-toggle");
 
 function applyTheme(theme) {
-    root.setAttribute('data-theme', theme)
-    if (themeToggle) {
-        themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙'
-        themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false')
-        themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Canviar a tema clar' : 'Canviar a tema fosc')
+    html.setAttribute("data-theme", theme);
+    if (themeButton) {
+        themeButton.textContent = theme === "dark" ? "☀️" : "🌙";
+        themeButton.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+        themeButton.setAttribute("aria-label", theme === "dark" ? "Canviar a tema clar" : "Canviar a tema fosc");
     }
-    try { localStorage.setItem('theme', theme) } catch (e) {}
+    try { localStorage.setItem("theme", theme); } catch (e) {}
 }
 
 const savedTheme = (function () {
-    try { return localStorage.getItem('theme') } catch (e) { return null }
-})() || root.getAttribute('data-theme') || 'dark'
+    try { return localStorage.getItem("theme"); } catch (e) { return null; }
+})() || html.getAttribute("data-theme") || "dark";
 
-applyTheme(savedTheme)
+applyTheme(savedTheme);
 
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const current = root.getAttribute('data-theme') || 'dark'
-        applyTheme(current === 'dark' ? 'light' : 'dark')
-    })
+if (themeButton) {
+    themeButton.addEventListener("click", () => {
+        const currentTheme = html.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        applyTheme(newTheme);
+    });
 }

@@ -1,5 +1,35 @@
 @use '../abstracts' as *;
 
+/* Component Taula */
+.taula {
+    width: 100%;
+
+    th,
+    td {
+        padding: 0.6rem 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid $cantina-border;
+    }
+
+    th {
+        font-weight: 600;
+        color: $cantina-muted;
+    }
+
+    // Les columnes numèriques (totes menys la primera) alineades a la dreta
+    th:not(:first-child),
+    td:not(:first-child) {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    // Si no hi cap en pantalles petites, es pot desplaçar horitzontalment
+    &-scroll {
+        overflow-x: auto;
+    }
+}
+
+/* Taula de productes de l'administració */
 .taula-productes {
     width: 100%;
     border-collapse: collapse;
@@ -12,8 +42,8 @@
     }
 
     th {
-        background: $gradient-card-title;
-        color: $color-text-dark;
+        background: var(--gradient-card-title);
+        color: var(--color-text-dark);
     }
 
     img {
@@ -30,10 +60,10 @@
         display: inline-block;
         padding: 6px 10px;
         border-radius: 6px;
-        color: $color-white;
+        color: var(--color-white);
         text-decoration: none;
 
-        &.editar { background: $color-primary; }
+        &.editar { background: var(--color-primary); }
         &.eliminar { background: var(--color-error); }
     }
 }

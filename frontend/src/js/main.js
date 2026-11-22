@@ -1,46 +1,55 @@
+// IMPORTS
+// Font Awesome: només el CSS base i les icones sòlides
+import '@fortawesome/fontawesome-free/css/fontawesome.min.css'
+import '@fortawesome/fontawesome-free/css/solid.min.css'
 import '../css/style.scss'
 import './formulari.js'
+import './carret.js'
 
-// Menú hamburguesa (mòbil)
+
+// EVENT: MENÚ HAMBURGUESA (mòbil)
 const toggle = document.querySelector('.menu-toggle')
 const menu = document.getElementById('menu-principal')
 
 if (toggle && menu) {
-    const setOpen = (open) => {
-        menu.classList.toggle('is-open', open)
-        toggle.textContent = open ? '✕' : '☰'
-        toggle.setAttribute('aria-expanded', String(open))
-        toggle.setAttribute('aria-label', open ? 'Tancar el menú' : 'Obrir el menú')
-    }
+    toggle.addEventListener('click', () => {
+        const obert = menu.classList.toggle('is-open') // afegeix o treu la classe i diu si ara està obert
 
-    toggle.addEventListener('click', () => setOpen(!menu.classList.contains('is-open')))
-    document.addEventListener('keydown', (e) => e.key === 'Escape' && setOpen(false))
-    window.matchMedia('(min-width: 768px)').addEventListener('change', () => setOpen(false))
+        // Si el menú està obert es mostra la creu, sinó les tres ratlles
+        if (obert) {
+            toggle.querySelector('i').className = 'fa-solid fa-xmark'
+        } else {
+            toggle.querySelector('i').className = 'fa-solid fa-bars'
+        }
+
+        toggle.setAttribute('aria-expanded', obert)
+    })
 }
 
 // Tema clar/fosc
-const themeToggle = document.querySelector('.theme-toggle')
-const root = document.documentElement
+const html = document.documentElement;
+const themeButton = document.querySelector("#theme-toggle");
 
 function applyTheme(theme) {
-    root.setAttribute('data-theme', theme)
-    if (themeToggle) {
-        themeToggle.textContent = theme === 'dark' ? '☀️' : '🌙'
-        themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false')
-        themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Canviar a tema clar' : 'Canviar a tema fosc')
+    html.setAttribute("data-theme", theme);
+    if (themeButton) {
+        themeButton.textContent = theme === "dark" ? "☀️" : "🌙";
+        themeButton.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
+        themeButton.setAttribute("aria-label", theme === "dark" ? "Canviar a tema clar" : "Canviar a tema fosc");
     }
-    try { localStorage.setItem('theme', theme) } catch (e) {}
+    try { localStorage.setItem("theme", theme); } catch (e) {}
 }
 
 const savedTheme = (function () {
-    try { return localStorage.getItem('theme') } catch (e) { return null }
-})() || root.getAttribute('data-theme') || 'dark'
+    try { return localStorage.getItem("theme"); } catch (e) { return null; }
+})() || html.getAttribute("data-theme") || "dark";
 
-applyTheme(savedTheme)
+applyTheme(savedTheme);
 
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        const current = root.getAttribute('data-theme') || 'dark'
-        applyTheme(current === 'dark' ? 'light' : 'dark')
-    })
+if (themeButton) {
+    themeButton.addEventListener("click", () => {
+        const currentTheme = html.getAttribute("data-theme");
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        applyTheme(newTheme);
+    });
 }

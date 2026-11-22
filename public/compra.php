@@ -1,76 +1,54 @@
-
-<?php
-$titol = "Projecte Cantina";
-?>
 <?php
 require_once '../includes/layout.php';
-layout_inici($titol);
+require_once '../includes/funcions.php';
 
-// Llegir el JSON
-$fitxer = '../data/productes.json';
-$productes = json_decode(file_get_contents($fitxer), true);
+$titol = "Compra";
+
+$franja = franja_actual();
+$productes = productes_franja($franja);
+
+layout_inici($titol);
 ?>
 <main>
 
-<h1>Comprar productes</h1>
+<!-- Banner amb la imatge de fons -->
+<section class="banner">
+    <p class="banner__subtitol">La Cantina</p>
+    <h1>Productes</h1>
+    <p>Descobreix els nostres productes i tria el que més t'agradi.</p>
+
+    <?php if ($franja != ''): ?>
+        <p class="banner__franja">Ara: <?= ucfirst($franja) ?></p>
+    <?php endif; ?>
+</section>
 
 <form action="finalitzacio.php" method="POST">
 
-    <table border="1" cellpadding="10">
-
-        <tr>
-            <th>Producte</th>
-            <th>Descripció</th>
-            <th>Preu</th>
-            <th>Disponibilitat</th>
-            <th>Quantitat</th>
-        </tr>
-
+    <ul class="productes">
         <?php foreach ($productes as $producte): ?>
-
-            <tr>
-                <td><?php echo htmlspecialchars($producte['nom']); ?></td>
-
-                <td><?php echo htmlspecialchars($producte['descripcio']); ?></td>
-
-                <td><?php echo number_format($producte['preu'], 2, ',', '.'); ?> €</td>
-
-                <td>
-                    <?php
-                    if ($producte['disponible']) {
-                        echo "Disponible";
-                    } else {
-                        echo "Esgotat";
-                    }
-                    ?>
-                </td>
-
-                <td>
-                    <?php if ($producte['disponible']): ?>
-
-                        <input
-                            type="number"
-                            name="quantitats[<?php echo $producte['id']; ?>]"
-                            min="0"
-                            max="20"
-                            value="0"
-                        >
-
-                    <?php else: ?>
-
-                        <input type="number" value="0" disabled>
-
-                    <?php endif; ?>
-                </td>
-            </tr>
-
+            <li><?php targeta_producte($producte); ?></li>
         <?php endforeach; ?>
+    </ul>
 
-    </table>
+    <!-- Tiquet: una línia per producte, amagada fins que se n'afegeix alguna unitat -->
+    <aside class="tiquet-viu">
+        <h2>El teu tiquet</h2>
 
-    <br>
+        <ul>
+            <?php foreach ($productes as $producte): ?>
+                <li id="linia-<?= $producte['id'] ?>" hidden>
+                    <span class="linia__quantitat">0</span> x <?= htmlspecialchars($producte['nom']) ?>
+                    <span class="linia__subtotal"></span>
+                </li>
+            <?php endforeach; ?>
+        </ul>
 
-    <button type="submit">Continuar amb la compra</button>
+        <p>Total: <span class="tiquet-viu__total">0,00 €</span></p>
+    </aside>
+
+    <div class="compra__accions">
+        <button type="submit">Continuar amb la compra</button>
+    </div>
 
 </form>
 

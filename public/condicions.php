@@ -1,14 +1,14 @@
 <?php
-$titol = "Condicions legals";
-?>
-<?php
 require_once '../includes/layout.php';
+
+$titol = "Condicions legals";
+
 layout_inici($titol);
 ?>
 <main>
 
-<article class="condicions" style="max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6;">
-    <h1 style="color: #ec8a1b;">Termes i condicions d'ús</h1>
+<article>
+    <h1>Termes i condicions d'ús</h1>
     <p><strong>Última actualització:</strong> 10 de novembre de 2026</p>
 
     <h2>1. Informació general</h2>

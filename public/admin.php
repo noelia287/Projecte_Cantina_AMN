@@ -25,7 +25,7 @@
             <tr>
                 <td>
                     <?php if (!empty($p['imatge'])): ?>
-                        <img src="<?= htmlspecialchars($p['imatge']) ?>" alt="<?= htmlspecialchars($p['nom']) ?>">
+                        <img src="../frontend/public/<?= htmlspecialchars($p['imatge']) ?>" alt="<?= htmlspecialchars($p['nom']) ?>">
                     <?php else: ?>
                         <div class="sense-imatge"><i class="fa-solid fa-image"></i></div>
                     <?php endif; ?>

@@ -1,0 +1,216 @@
+@use '../abstracts' as *;
+
+/* Banner de la pàgina de compra: imatge de fons i text a l'esquerra */
+.banner {
+    margin-bottom: 2rem;
+    padding: 2.5rem 2rem;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/banner-compra.png') center / cover;
+    border-radius: 8px;
+
+    &__subtitol {
+        margin: 0;
+        font-weight: 700;
+        color: $cantina-accent;
+    }
+
+    h1 {
+        margin: 0.5rem 0;
+        color: #fff;
+    }
+
+    // Frase de sota el títol
+    h1 + p {
+        margin: 0;
+        color: #eee;
+    }
+
+    // Franja horària actual
+    &__franja {
+        margin: 0.5rem 0 0;
+        font-weight: 700;
+        color: #eee;
+    }
+
+    @media (max-width: $bp-mobile) {
+        padding: 1.5rem 1rem;
+    }
+}
+
+/* Graella de 5 columnes, tablet 2 columnes, mòbil 1 columna */
+.productes {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+
+    @media (max-width: $bp-tablet) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: $bp-mobile) {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Targeta de producte: foto, nom, descripció i preu un sota l'altre
+   en columna perquè el preu i el carret quedin sempre a baix */
+.producte {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: $cantina-surface;
+    border: 1px solid $cantina-border;
+
+    &__imatge {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+    }
+
+    // Ocupa tot l'espai que queda sota la foto
+    &__info {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        padding: 0.75rem;
+    }
+
+    &__nom {
+        margin: 0;
+        padding: 0;
+        font-size: 1rem;
+        color: $cantina-text;
+        border: none;
+    }
+
+    &__descripcio {
+        margin: 0 0 0.5rem;
+        font-size: 0.85rem;
+        color: $cantina-muted;
+    }
+
+    // Preu a l'esquerra i quantitat a la dreta, enganxat a baix de la targeta
+    &__compra {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__preu del {
+        margin-right: 0.3rem;
+        color: $cantina-muted;
+    }
+
+    // Carret i selector - quantitat +
+    &__quantitat {
+        // [type="button"] pels estils del button
+        button[type="button"] {
+            margin: 0;
+            padding: 0;
+            width: 1.8rem;
+            height: 1.8rem;
+            color: #fff;
+            background: $cantina-accent;
+            border: none;
+        }
+    }
+
+    &__selector {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+
+        &[hidden] {
+            display: none;
+        }
+    }
+
+    // Enllaç "Comprar" de les ofertes de l'inici
+    &__boto {
+        color: $cantina-accent;
+        text-decoration: underline;
+    }
+
+    // Text "Oferta" i "Esgotat" sota la foto
+    &__etiqueta {
+        display: block;
+        padding: 0.5rem 0.75rem 0;
+        font-size: 0.8rem;
+        color: $cantina-accent;
+    }
+
+    // Producte esgotat: apagat
+    &--esgotat {
+        opacity: 0.5;
+
+        .producte__carret {
+            background: $cantina-muted;
+        }
+
+        .producte__etiqueta {
+            color: $cantina-muted;
+        }
+    }
+}
+
+/* Botó de continuar a la dreta */
+.compra__accions {
+    margin-top: 1.5rem;
+    text-align: right;
+
+    button {
+        margin: 0;
+    }
+
+    @media (max-width: $bp-mobile) {
+        button {
+            width: 100%;
+        }
+    }
+}
+
+/* Tiquet en viu: a la dreta, sobre el botó de continuar */
+.tiquet-viu {
+    max-width: 380px;
+    margin: 2rem 0 0 auto;
+    padding: 1.5rem;
+    font-family: 'Courier New', monospace;
+    background: $cantina-surface;
+    border: 1px solid $cantina-muted;
+    border-radius: 4px;
+
+    h2 {
+        margin: 0 0 1rem;
+        border: none;
+    }
+
+    // Quantitat i nom a l'esquerra, subtotal a la dreta
+    li {
+        display: flex;
+        gap: 0.3rem;
+        margin-bottom: 0.25rem;
+
+        // Amb display: flex el hidden ja no amaga la línia, per això cal tornar-ho a posar
+        &[hidden] {
+            display: none;
+        }
+    }
+
+    .linia__subtotal {
+        margin-left: auto;
+    }
+
+    // "Total:" a l'esquerra i el preu a la dreta, separats per una línia discontínua
+    p {
+        display: flex;
+        justify-content: space-between;
+        margin: 0.75rem 0 0;
+        padding-top: 0.75rem;
+        font-weight: 700;
+        border-top: 1px dashed $cantina-border;
+    }
+
+    @media (max-width: $bp-mobile) {
+        max-width: none;
+    }
+}

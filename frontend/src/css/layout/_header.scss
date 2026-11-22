@@ -1,15 +1,22 @@
 @use '../abstracts' as *;
 
-/* Capçalera: logo a l'esquerra i menú a la dreta */
-body>header {
+/* Capçalera: el fons ocupa tota l'amplada */
+body > header {
+    background: $cantina-surface;
+    border-bottom: 1px solid $cantina-border;
+    box-shadow: $cantina-shadow;
+}
+
+/* Contingut de la capçalera: centrat i amb la mateixa amplada que el main
+   logo i botó del tema a l'esquerra, menú a la dreta */
+.capcalera {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 0.75rem max(1rem, calc((100% - #{$cantina-max-width}) / 2));
-    background: $cantina-surface;
-    border-bottom: 1px solid $cantina-border;
-    box-shadow: $cantina-shadow;
+    max-width: $cantina-max-width;
+    margin: 0 auto;
+    padding: 0.75rem 1.5rem;
 
     .logo {
         padding: 0;
@@ -32,11 +39,10 @@ body>header {
         font-weight: 600;
         color: $cantina-muted;
         border-radius: 999px;
-        transition: background 0.2s, color 0.2s;
 
         &:hover {
             color: $cantina-accent;
-            background: color-mix(in srgb, var(--cantina-accent) 8%, transparent);
+            background: rgba(240, 122, 62, 0.08); // el taronja dels botons, gairebé transparent
         }
     }
 }
@@ -52,10 +58,8 @@ body>header {
     font-size: 1.5rem;
     line-height: 1;
     color: $cantina-text;
-    background: none;
     border: 1px solid $cantina-border;
     border-radius: 8px;
-    cursor: pointer;
 
     &:hover,
     &:focus-visible {
@@ -63,9 +67,9 @@ body>header {
     }
 }
 
-/* Botó tema: ocult a escriptori */
+/* Botó tema: visible a escriptori i mòbil */
 .theme-toggle {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 44px;
@@ -74,10 +78,9 @@ body>header {
     font-size: 1.3rem;
     line-height: 1;
     color: $cantina-text;
-    background: none;
     border: 1px solid $cantina-border;
     border-radius: 8px;
-    cursor: pointer;
+    margin-right: auto;
 
     &:hover,
     &:focus-visible {
@@ -87,12 +90,14 @@ body>header {
 
 /* Mòbil: menú hamburguesa */
 @media (max-width: $bp-mobile) {
-    body>header {
+    .capcalera {
         flex-wrap: wrap;
+        padding: 0.75rem 1rem; // el mateix marge que el main al mòbil
 
         nav {
             display: none;
             width: 100%;
+            border-top: 1px solid $cantina-border; // línia entre el logo i el menú
 
             &.is-open {
                 display: block;
@@ -100,15 +105,26 @@ body>header {
 
             ul {
                 flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+            }
+
+            li + li {
+                border-top: 1px solid $cantina-border; // línia entre enllaços
+            }
+
+            a {
+                padding: 0.9rem 0.25rem;
+                color: $cantina-text;
+
+                &:hover {
+                    color: $cantina-accent;
+                }
             }
         }
     }
 
     .menu-toggle {
-        display: flex;
-    }
-
-    .theme-toggle {
         display: flex;
     }
 }

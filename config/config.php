@@ -13,3 +13,8 @@ define('HORA_TANCAMENT', 18);
 
 // Per fer proves: 'esmorzar', 'dinar' o 'berenar' per veure aquella franja. Buit ('') fa servir l'hora real
 define('FRANJA_PROVES', '');
+
+// Accés a l'administració (usuari i contrasenya)
+define('ADMIN_USUARI', 'admin');
+define('ADMIN_CLAU', 'cantina123');
+?>

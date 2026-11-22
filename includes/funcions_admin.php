@@ -300,3 +300,17 @@ function unitats_tiquet(array $tiquet): int {
 
     return $unitats;
 }
+
+
+// FUNCIÓ: L'ADMINISTRADOR HA ENTRAT?
+// Retorna true si a la sessió hi ha l'administrador identificat
+function admin_validat(): bool {
+    return isset($_SESSION['admin']) && $_SESSION['admin'] === true;
+}
+
+
+// FUNCIÓ: COMPROVAR LES CREDENCIALS
+// Retorna true si l'usuari i la contrasenya coincideixen amb els de config.php
+function credencials_correctes(string $usuari, string $clau): bool {
+    return $usuari === ADMIN_USUARI && $clau === ADMIN_CLAU;
+}

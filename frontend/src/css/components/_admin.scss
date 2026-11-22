@@ -41,3 +41,46 @@
     margin-bottom: 1rem;
     color: $cantina-muted;
 }
+
+/* Títol de l'administració i enllaç per tancar la sessió */
+.admin__titol {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    h1 {
+        margin-bottom: 0;
+    }
+}
+
+.admin__sortir {
+    color: $cantina-muted;
+    white-space: nowrap;
+
+    &:hover {
+        color: $cantina-accent;
+    }
+}
+
+/* Formulari d'accés a l'administració */
+.login {
+    max-width: 380px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: $cantina-surface;
+    border: 1px solid $cantina-border;
+    border-radius: 8px;
+    box-shadow: $cantina-shadow;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    &__accions {
+        margin-top: 1rem;
+    }
+}

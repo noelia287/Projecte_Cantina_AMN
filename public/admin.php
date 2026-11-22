@@ -1,10 +1,47 @@
 <?php
+    session_start();
+
     $titol = "Projecte Cantina";
+    require_once "../includes/layout.php";
     require_once "../includes/funcions.php";
     require_once "../includes/funcions_admin.php";
     require_once "../includes/funcions_compra.php";
     $error_sidebar = "";
+    $error_login = "";
     $producteEditat = null;
+
+    // Tancar la sessió de l'administrador
+    if (isset($_GET['sortir'])) {
+        unset($_SESSION['admin']);
+
+        header('Location: admin.php');
+        exit;
+    }
+
+    // Intent d'entrar: si l'usuari i la contrasenya coincideixen, es guarda a la sessió
+    if (isset($_POST['login'])) {
+        if (credencials_correctes($_POST['usuari'] ?? '', $_POST['clau'] ?? '')) {
+            session_regenerate_id(true);
+            $_SESSION['admin'] = true;
+
+            header('Location: admin.php');
+            exit;
+        }
+
+        $error_login = "Usuari o contrasenya incorrectes.";
+    }
+
+    // Sense sessió només es veu el login. S'atura aquí, abans de llegir o canviar cap dada
+    if (!admin_validat()) {
+        layout_inici("Accés a l'administració");
+        ?>
+        <main>
+            <?php include '../includes/form_login.php'; ?>
+        </main>
+        <?php
+        layout_final();
+        exit;
+    }
 
     // Apartat de l'administració: "productes" (per defecte) o "tiquets"
     $apartat = 'productes';
@@ -88,11 +125,13 @@
 
 ?>
 <?php
-    require_once '../includes/layout.php';
     layout_inici($titol);
 ?>
 <main>
-    <h1>Panell d'administració</h1>
+    <div class="admin__titol">
+        <h1>Panell d'administració</h1>
+        <a href="admin.php?sortir=1" class="admin__sortir"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Tanca la sessió</a>
+    </div>
 
     <!-- Pestanyes: la de l'apartat actiu es marca amb aria-current -->
     <nav class="admin__pestanyes" aria-label="Apartats de l'administració">

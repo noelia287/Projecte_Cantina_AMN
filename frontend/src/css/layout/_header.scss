@@ -1,15 +1,22 @@
 @use '../abstracts' as *;
 
-/* Capçalera: logo i botó del tema a l'esquerra, menú a la dreta */
+/* Capçalera: el fons ocupa tota l'amplada */
 body > header {
+    background: $cantina-surface;
+    border-bottom: 1px solid $cantina-border;
+    box-shadow: $cantina-shadow;
+}
+
+/* Contingut de la capçalera: centrat i amb la mateixa amplada que el main
+   logo i botó del tema a l'esquerra, menú a la dreta */
+.capcalera {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    max-width: $cantina-max-width;
+    margin: 0 auto;
     padding: 0.75rem 1.5rem;
-    background: $cantina-surface;
-    border-bottom: 1px solid $cantina-border;
-    box-shadow: $cantina-shadow;
 
     .logo {
         padding: 0;
@@ -83,8 +90,9 @@ body > header {
 
 /* Mòbil: menú hamburguesa */
 @media (max-width: $bp-mobile) {
-    body > header {
+    .capcalera {
         flex-wrap: wrap;
+        padding: 0.75rem 1rem; // el mateix marge que el main al mòbil
 
         nav {
             display: none;

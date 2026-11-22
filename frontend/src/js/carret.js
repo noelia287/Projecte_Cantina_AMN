@@ -1,10 +1,21 @@
+// Elements de la pàgina de compra: llista de productes, selectors de quantitat i total del tiquet
 const llista = document.querySelector(".productes");
 const caixes = document.querySelectorAll(".producte__quantitat");
 const total = document.querySelector(".tiquet-viu__total");
 
-// Quantitats guardades al navegador: { id del producte: quantitat }. Si no n'hi ha, comença buit
+// VARIABLES: CARRET GUARDAT AL NAVEGADOR
+// Quantitats guardades al navegador. Si no n'hi ha, comença buit
 let carretGuardat = JSON.parse(localStorage.getItem("carret")) || {};
 
+
+// FUNCIÓ: FORMATAR EL PREU
+// Formata el preu amb "," i dos decimals i el signe de l'euro
+function formatPreu(preu) {
+    return `${preu.toFixed(2).replace(".", ",")} €`;
+}
+
+
+// FUNCIÓ: CALCULAR EL TOTAL DEL TIQUET
 // Suma el preu per la quantitat de cada producte i ho mostra al total del tiquet
 function actualitzarTotal() {
     let suma = 0;
@@ -15,9 +26,11 @@ function actualitzarTotal() {
         suma = suma + preu * quantitat;
     });
 
-    total.textContent = suma.toFixed(2).replace(".", ",") + " €";
+    total.textContent = formatPreu(suma);
 }
 
+
+// FUNCIÓ: ACTUALITZAR LA QUANTITAT D'UN PRODUCTE
 // Mostra la nova quantitat d'un producte: carret o selector, botó "+", línia del tiquet i total
 function actualitzar(caixa, quantitat) {
     const carret = caixa.querySelector(".producte__carret");
@@ -27,13 +40,13 @@ function actualitzar(caixa, quantitat) {
     const input = caixa.querySelector("input");
     const maxim = Number(caixa.dataset.unitats); // Unitats definides en el JSON
     const preu = Number(caixa.dataset.preu);
-    const linia = document.getElementById("linia-" + caixa.dataset.id); // Línia del tiquet d'aquest producte
+    const linia = document.getElementById(`linia-${caixa.dataset.id}`); // Línia del tiquet d'aquest producte
 
-    // Mostrar la quantitat a l'usuari i en el input
+    // Mostra la quantitat a l'usuari i a l'input
     numero.textContent = quantitat;
     input.value = quantitat;
 
-    // Si quantitat es 0 mostra el carret, sinó mostra el selector
+    // Si la quantitat és 0 mostra el carret, sinó mostra el selector
     if (quantitat === 0) {
         carret.hidden = false;
         selector.hidden = true;
@@ -51,7 +64,7 @@ function actualitzar(caixa, quantitat) {
 
     // Actualitza la línia d'aquest producte al tiquet
     linia.querySelector(".linia__quantitat").textContent = quantitat;
-    linia.querySelector(".linia__subtotal").textContent = (preu * quantitat).toFixed(2).replace(".", ",") + " €";
+    linia.querySelector(".linia__subtotal").textContent = formatPreu(preu * quantitat);
 
     // Si la quantitat és 0 s'amaga la línia, sinó es mostra
     if (quantitat === 0) {
@@ -70,7 +83,9 @@ function actualitzar(caixa, quantitat) {
 // Només a la pàgina de compra, que és on hi ha la llista de productes
 if (llista) {
 
-    // Delegació d'events: un sol listener per a tots els botons de tots els productes
+
+    // EVENT: BOTONS DEL CARRET, + I -
+    // Un sol listener per a tots els botons de tots els productes
     llista.addEventListener("click", event => {
         const boto = event.target.closest("button"); // Botó clicat (o null si s'ha clicat fora d'un botó)
 
@@ -94,6 +109,8 @@ if (llista) {
         actualitzar(caixa, quantitat);
     });
 
+
+    // LÒGICA: RECUPERAR EL CARRET EN CARREGAR LA PÀGINA
     // En carregar la pàgina, torna a posar les quantitats que hi havia guardades
     caixes.forEach(caixa => {
         const guardada = carretGuardat[caixa.dataset.id] || 0;
@@ -105,6 +122,8 @@ if (llista) {
     });
 }
 
+
+// LÒGICA: ESBORRAR EL CARRET DESPRÉS DE COMPRAR
 // Si s'acaba de fer la compra (es veu el tiquet final), s'esborra el carret guardat
 if (document.querySelector(".zona-tiquet")) {
     localStorage.removeItem("carret");

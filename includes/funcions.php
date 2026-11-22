@@ -2,15 +2,19 @@
 
 require_once __DIR__ . '/../config/config.php';
 
-// Llegeix el JSON de productes i el retorna com un array de PHP 
+
+// FUNCIÓ: LLEGIR ELS PRODUCTES
+// Llegeix el JSON de productes i el retorna com un array de PHP
 function llegir_productes(): array {
-    $fitxer = fopen(RUTA_PRODUCTES, 'r');  
-    $contingut = fread($fitxer, filesize(RUTA_PRODUCTES)); 
-    fclose($fitxer); 
+    $fitxer = fopen(RUTA_PRODUCTES, 'r');
+    $contingut = fread($fitxer, filesize(RUTA_PRODUCTES));
+    fclose($fitxer);
 
     return json_decode($contingut, true);
 }
 
+
+// FUNCIÓ: FRANJA HORÀRIA ACTUAL
 // Retorna la franja de l'hora actual: "esmorzar", "dinar", "berenar" o "" si la cantina està tancada
 function franja_actual(): string {
 
@@ -32,6 +36,8 @@ function franja_actual(): string {
     }
 }
 
+
+// FUNCIÓ: PRODUCTES DE LA FRANJA
 // Retorna els productes de la franja; si la cantina està tancada (franja buida), els retorna tots
 function productes_franja(string $franja): array {
     $productes = [];
@@ -45,11 +51,13 @@ function productes_franja(string $franja): array {
     return $productes;
 }
 
-// Extra Ofertes
+
+// FUNCIÓ: OFERTES DEL DIA
+// Retorna els productes de la franja actual que tenen preu d'oferta i no estan esgotats
 function llegir_ofertes(): array {
     $ofertes = [];
 
-    // Si algun producte de la franja actual (fora d'horari, tots) no està esgotat i té preu d'oferta l'afegeix a "ofertes"
+    // Només els que no estan esgotats i tenen preu d'oferta
     foreach (productes_franja(franja_actual()) as $producte) {
         if ($producte['unitats'] > 0 && $producte['preu_oferta'] > 0) {
             array_push($ofertes, $producte);
@@ -59,15 +67,16 @@ function llegir_ofertes(): array {
     return $ofertes;
 }
 
-// Formata el preu amb "," i dos decimals i el signe del euro
+
+// FUNCIÓ: FORMATAR EL PREU
+// Formata el preu amb "," i dos decimals i el signe de l'euro
 function format_preu(float $preu): string {
     return number_format($preu, 2, ',', '.') . ' €';
 }
 
 
+// FUNCIÓ: TARGETA D'UN PRODUCTE
 // Pinta la targeta d'un producte
-// $amb_carret = true → carret amb quantitat (compra.php)
-// $amb_carret = false → botó "Comprar" que porta a compra.php (index.php)
 function targeta_producte(array $producte, bool $amb_carret = true): void {
     $oferta = $producte['preu_oferta'];
     $disponible = $producte['unitats'] > 0;

@@ -24,13 +24,19 @@
         color: #eee;
     }
 
+    // Franja horària actual
+    &__franja {
+        margin: 0.5rem 0 0;
+        font-weight: 700;
+        color: #eee;
+    }
+
     @media (max-width: $bp-mobile) {
         padding: 1.5rem 1rem;
     }
 }
 
-/* Pàgina de compra: graella de productes
-   escriptori 5 columnes, tablet 2 columnes, mòbil 1 columna */
+/* Graella de 5 columnes, tablet 2 columnes, mòbil 1 columna */
 .productes {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -45,8 +51,8 @@
     }
 }
 
-/* Card de producte: foto, nom, descripció i preu un sota l'altre
-   en columna perquè el preu i el carret quedin sempre a baix, encara que hi hagi "Oferta" o "Esgotat" */
+/* Targeta de producte: foto, nom, descripció i preu un sota l'altre
+   en columna perquè el preu i el carret quedin sempre a baix */
 .producte {
     display: flex;
     flex-direction: column;
@@ -97,7 +103,7 @@
 
     // Carret i selector - quantitat +
     &__quantitat {
-        // [type="button"] perquè guanyi a "form button[type=button]" de style.scss
+        // [type="button"] pels estils del button
         button[type="button"] {
             margin: 0;
             padding: 0;
@@ -125,7 +131,7 @@
         text-decoration: underline;
     }
 
-    // Text "Oferta" / "Esgotat" sota la foto
+    // Text "Oferta" i "Esgotat" sota la foto
     &__etiqueta {
         display: block;
         padding: 0.5rem 0.75rem 0;
@@ -163,8 +169,7 @@
     }
 }
 
-/* Tiquet en viu: a la dreta, sobre el botó de continuar
-   mòbil: ocupa tota l'amplada */
+/* Tiquet en viu: a la dreta, sobre el botó de continuar */
 .tiquet-viu {
     max-width: 380px;
     margin: 2rem 0 0 auto;
@@ -177,12 +182,6 @@
     h2 {
         margin: 0 0 1rem;
         border: none;
-    }
-
-    ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
     }
 
     // Quantitat i nom a l'esquerra, subtotal a la dreta

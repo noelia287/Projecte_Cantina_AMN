@@ -1,12 +1,8 @@
 @use '../abstracts' as *;
 
-/* Headings */
+/* Títols */
 h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h2 {
     font-family: $font-title;
     font-weight: normal;
 }
@@ -25,10 +21,6 @@ h2 {
     padding-bottom: 3px;
     margin-bottom: 6px;
     border-bottom: 1px solid $cantina-border;
-}
-
-h3 {
-    font-size: 13px;
 }
 
 p {

@@ -1,8 +1,8 @@
 <?php
-$titol = "Projecte Cantina";
-
 require_once '../includes/layout.php';
 require_once '../includes/funcions.php';
+
+$titol = "Compra";
 
 $franja = franja_actual();
 $productes = productes_franja($franja);

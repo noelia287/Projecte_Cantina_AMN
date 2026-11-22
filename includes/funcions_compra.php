@@ -1,8 +1,12 @@
 <?php
 
+require_once __DIR__ . '/funcions.php';
+
 // Que json_encode escrigui els preus normals (1.2 i no 1.19999...)
 ini_set('serialize_precision', -1);
 
+
+// FUNCIÓ: CALCULAR LA COMPRA
 // Rep les quantitats del formulari i retorna una llista amb els productes que es compren
 function calcular_compra(array $quantitats): array {
     $compra = [];
@@ -40,6 +44,8 @@ function calcular_compra(array $quantitats): array {
     return $compra;
 }
 
+
+// FUNCIÓ: CALCULAR EL TOTAL
 // Suma els subtotals de tots els productes de la compra
 function calcular_total(array $compra): float {
     $total = 0;
@@ -51,6 +57,24 @@ function calcular_total(array $compra): float {
     return $total;
 }
 
+
+// FUNCIÓ: CREAR EL TIQUET
+// Crea el tiquet amb les dades de l'usuari i els productes de la compra
+function crear_tiquet(string $nom, string $cognom, string $email, string $tel, array $compra): array {
+    return [
+        'numero' => uniqid(),
+        'data' => date('d/m/Y H:i'),
+        'nom' => $nom,
+        'cognom' => $cognom,
+        'email' => $email,
+        'telefon' => $tel,
+        'productes' => $compra,
+        'total' => calcular_total($compra)
+    ];
+}
+
+
+// FUNCIÓ: GUARDAR EL TIQUET
 // Afegeix el tiquet al final de comandes.txt, una comanda per línia
 // LOCK_EX bloqueja el fitxer mentre s'escriu, perquè dues compres alhora no el barregin
 function guardar_tiquet(array $tiquet): bool {
@@ -60,6 +84,8 @@ function guardar_tiquet(array $tiquet): bool {
     return file_put_contents(RUTA_COMANDES, $linia, FILE_APPEND | LOCK_EX) !== false;
 }
 
+
+// FUNCIÓ: RESTAR LES UNITATS
 // Resta al JSON les unitats que s'han comprat de cada producte
 function restar_unitats(array $compra): void {
     $productes = llegir_productes();
@@ -79,30 +105,67 @@ function restar_unitats(array $compra): void {
     file_put_contents(RUTA_PRODUCTES, $json, LOCK_EX);
 }
 
+
+// FUNCIÓ: COMPROVAR EL NOM
+// Retorna true si el text només té lletres (també amb accent), espais, apòstrofs o guions
+function nom_correcte(string $text): bool {
+    $especials = ['à', 'á', 'è', 'é', 'í', 'ï', 'ò', 'ó', 'ú', 'ü', 'ç', 'ñ',
+                  'À', 'Á', 'È', 'É', 'Í', 'Ï', 'Ò', 'Ó', 'Ú', 'Ü', 'Ç', 'Ñ',
+                  '·', "'", '’', '-', ' '];
+
+    // Es treuen els caràcters especials permesos
+    $net = str_replace($especials, '', $text);
+
+    // El que queda han de ser només lletres de la a a la z (ctype_alpha: com ctype_digit però amb lletres)
+    return ctype_alpha($net);
+}
+
+
+// FUNCIÓ: VALIDAR LES DADES DEL FORMULARI
 // Comprova les dades del formulari i retorna el missatge d'error, o "" si tot és correcte
-function validar_dades(string $nom, string $email, string $tel): string {
+function validar_dades(string $nom, string $cognom, string $email, string $tel): string {
 
     // El nom és obligatori
     if ($nom == "") {
         return "El nom és obligatori.";
     }
 
-    // L'email és obligatori i ha de tenir format d'email (filter_var és la funció de PHP per validar emails)
+    // Ha de tenir entre 2 i 50 caràcters i només lletres
+    if (strlen($nom) < 2 || strlen($nom) > 50 || !nom_correcte($nom)) {
+        return "El nom ha de tenir entre 2 i 50 caràcters i només lletres.";
+    }
+
+    // El cognom és opcional, però si s'escriu ha de ser vàlid
+    if ($cognom != "") {
+        if (strlen($cognom) < 2 || strlen($cognom) > 60 || !nom_correcte($cognom)) {
+            return "El cognom ha de tenir entre 2 i 60 caràcters i només lletres.";
+        }
+    }
+
+    // L'email és obligatori i ha de tenir format d'email
     if ($email == "") {
         return "L'email és obligatori.";
     }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        return "L'email no és correcte (exemple: nom@gmail.com).";
+    // Com al JS, com a màxim 100 caràcters
+    if (strlen($email) > 100) {
+        return "L'email no és vàlid (exemple: nom@domini.com).";
     }
 
-    // El telèfon, sense espais, ha de tenir 9 caràcters i tots han de ser xifres (ctype_digit: només 0-9)
+    // filter_var és la funció de PHP per validar emails
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        return "L'email no és correcte (exemple: nom@domini.com).";
+    }
+
+    // El telèfon es mira sense espais ("612 345 678" es queda "612345678")
     $tel_sense_espais = str_replace(' ', '', $tel);
 
+    // Ha de tenir 9 caràcters
     if (strlen($tel_sense_espais) != 9) {
         return "El telèfon ha de tenir 9 xifres.";
     }
 
+    // I tots han de ser xifres (ctype_digit: només 0-9)
     if (!ctype_digit($tel_sense_espais)) {
         return "El telèfon només pot tenir números.";
     }
@@ -111,12 +174,16 @@ function validar_dades(string $nom, string $email, string $tel): string {
     return "";
 }
 
+
+// FUNCIÓ: HI HA COMPRA?
 // Retorna true si a la sessió hi ha una compra amb algun producte
 function hi_ha_compra(): bool {
     return isset($_SESSION['compra']) && count($_SESSION['compra']) > 0;
 }
 
-// Pinta el tiquet d'una comanda (a finalitzacio.php i a admin.php)
+
+// FUNCIÓ: MOSTRAR EL TIQUET
+// Pinta el tiquet d'una comanda
 function mostrar_tiquet(array $tiquet): void {
     ?>
     <div class="tiquet">
@@ -132,7 +199,7 @@ function mostrar_tiquet(array $tiquet): void {
 
         <hr>
 
-        <table class="taula taula-tiquet">
+        <table class="taula">
             <tr><th>Producte</th><th>U.</th><th>Preu</th></tr>
 
             <?php foreach ($tiquet['productes'] as $producte): ?>

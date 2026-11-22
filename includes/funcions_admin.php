@@ -223,3 +223,80 @@ function crear_producte(array $dades, string $imatge): bool {
 
     return guardar_productes($productes);
 }
+
+
+// FUNCIÓ: LLEGIR LES COMANDES
+// Llegeix comandes.txt (una comanda en JSON per línia) i les retorna de la més recent a la més antiga
+// Les línies buides, que no siguin JSON o a les quals els falti alguna dada s'ignoren
+function llegir_comandes(): array {
+    if (!file_exists(RUTA_COMANDES)) {
+        return [];
+    }
+
+    // Si no es pot obrir (per exemple, per permisos), es retorna una llista buida
+    $fitxer = fopen(RUTA_COMANDES, 'r');
+    if ($fitxer === false) {
+        return [];
+    }
+
+    $comandes = [];
+    $obligatoris = ['numero', 'data', 'nom', 'cognom', 'email', 'telefon', 'productes', 'total'];
+
+    // Es llegeix una línia cada vegada fins al final del fitxer
+    while (!feof($fitxer)) {
+        $linia = trim(fgets($fitxer));
+
+        // Línia buida (per exemple, la de després de l'últim salt de línia)
+        if ($linia === '') {
+            continue;
+        }
+
+        $tiquet = json_decode($linia, true);
+
+        if (!is_array($tiquet) || !is_array($tiquet['productes'] ?? null)) {
+            continue;
+        }
+
+        // Si falta alguna dada, la línia no es pot mostrar bé
+        $correcte = true;
+        foreach ($obligatoris as $camp) {
+            if (!array_key_exists($camp, $tiquet)) {
+                $correcte = false;
+            }
+        }
+
+        if ($correcte) {
+            array_push($comandes, $tiquet);
+        }
+    }
+
+    fclose($fitxer);
+
+    return array_reverse($comandes);
+}
+
+
+// FUNCIÓ: BUSCAR UN TIQUET
+// Retorna el tiquet amb aquest número, o null si no existeix
+function buscar_tiquet(array $comandes, string $numero): ?array {
+    foreach ($comandes as $tiquet) {
+        if ((string) $tiquet['numero'] === $numero) {
+            return $tiquet;
+        }
+    }
+
+    return null;
+}
+
+
+// FUNCIÓ: UNITATS D'UN TIQUET
+// Retorna el nombre total d'unitats compradas en un tiquet
+function unitats_tiquet(array $tiquet): int {
+    $unitats = 0;
+
+    foreach ($tiquet['productes'] as $producte) {
+        $unitats += (int) ($producte['quantitat'] ?? 0);
+    }
+
+    return $unitats;
+}

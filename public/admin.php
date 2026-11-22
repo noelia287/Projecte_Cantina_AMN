@@ -2,8 +2,15 @@
     $titol = "Projecte Cantina";
     require_once "../includes/funcions.php";
     require_once "../includes/funcions_admin.php";
+    require_once "../includes/funcions_compra.php";
     $error_sidebar = "";
     $producteEditat = null;
+
+    // Apartat de l'administració: "productes" (per defecte) o "tiquets"
+    $apartat = 'productes';
+    if (($_GET['apartat'] ?? '') === 'tiquets') {
+        $apartat = 'tiquets';
+    }
 
     // Eliminar un producte (arriba per POST des del botó de la taula)
     if (isset($_POST['eliminar'])) {
@@ -62,9 +69,16 @@
     }
 
     $productes = llegir_productes();
+    $comandes = llegir_comandes();
+    $tiquetObert = null;
 
-    // Si no venim d'un error, el sidebar s'obre segons la URL: ?nou=1 per crear o ?editar=ID per editar
-    if ($producteEditat === null) {
+    // Apartat de tiquets: el sidebar mostra el tiquet de la URL (?apartat=tiquets&tiquet=NUMERO)
+    if ($apartat === 'tiquets' && isset($_GET['tiquet'])) {
+        $tiquetObert = buscar_tiquet($comandes, (string) $_GET['tiquet']);
+    }
+
+    // Apartat de productes, si no venim d'un error: ?nou=1 per crear o ?editar=ID per editar
+    if ($apartat === 'productes' && $producteEditat === null) {
         if (isset($_GET['nou'])) {
             $producteEditat = producte_buit();
         } else {
@@ -78,11 +92,25 @@
     layout_inici($titol);
 ?>
 <main>
+    <h1>Panell d'administració</h1>
+
+    <!-- Pestanyes: la de l'apartat actiu es marca amb aria-current -->
+    <nav class="admin__pestanyes" aria-label="Apartats de l'administració">
+        <a href="admin.php" <?= $apartat === 'productes' ? 'aria-current="page"' : '' ?>>
+            Productes <span class="admin__comptador"><?= count($productes) ?></span>
+        </a>
+        <a href="admin.php?apartat=tiquets" <?= $apartat === 'tiquets' ? 'aria-current="page"' : '' ?>>
+            Tiquets <span class="admin__comptador"><?= count($comandes) ?></span>
+        </a>
+    </nav>
+
+<?php if ($apartat === 'productes'): ?>
+
     <div class="admin__capcalera">
-        <h1>Productes</h1>
+        <h2>Productes</h2>
         <a href="admin.php?nou=1" class="admin__afegir"><i class="fa-solid fa-plus" aria-hidden="true"></i> Afegir producte</a>
     </div>
-    <table class="taula-productes">
+    <table class="taula-admin">
         <thead>
             <tr>
                 <th>Imatge</th>
@@ -120,10 +148,70 @@
         <?php endforeach; ?>
         </tbody>
     </table>
+
+<?php else: ?>
+
+    <div class="admin__capcalera">
+        <h2>Tiquets</h2>
+    </div>
+
+    <?php if (count($comandes) == 0): ?>
+
+        <p>Encara no hi ha tiquets.</p>
+
+    <?php else: ?>
+
+        <?php
+            // Total recaptat: suma del total de tots els tiquets
+            $recaptat = 0;
+            foreach ($comandes as $c) {
+                $recaptat += (float) $c['total'];
+            }
+        ?>
+        <p class="admin__resum">
+            <?= count($comandes) ?> tiquets · Total recaptat: <strong><?= format_preu($recaptat) ?></strong>
+        </p>
+
+        <div class="taula-scroll">
+            <table class="taula-admin">
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Data</th>
+                        <th>Client</th>
+                        <th>Unitats</th>
+                        <th>Total</th>
+                        <th>Accions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($comandes as $c): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($c['numero']) ?></td>
+                        <td><?= htmlspecialchars($c['data']) ?></td>
+                        <td><?= htmlspecialchars($c['nom'] . ' ' . $c['cognom']) ?></td>
+                        <td><?= unitats_tiquet($c) ?></td>
+                        <td><?= format_preu((float) $c['total']) ?></td>
+                        <td class="accions">
+                            <a href="admin.php?apartat=tiquets&tiquet=<?= urlencode($c['numero']) ?>" class="btn-accio veure" title="Veure el tiquet" aria-label="Veure el tiquet <?= htmlspecialchars($c['numero']) ?>"><i class="fa-solid fa-eye"></i></a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+    <?php endif; ?>
+
+<?php endif; ?>
 </main>
 <?php
-if ($producteEditat !==null) {
+if ($producteEditat !== null) {
     include '../includes/menu_sidebar.php';
+}
+
+if ($tiquetObert !== null) {
+    include '../includes/menu_sidebar_tiquet.php';
 }
 ?>
 <?php layout_final(); ?>

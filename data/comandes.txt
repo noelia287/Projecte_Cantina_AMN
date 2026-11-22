@@ -1,0 +1,1 @@
+{"numero":"6b032faad4729","data":"22\/11\/2026 19:08","nom":"Marc","cognom":"Cirio","email":"marc.cirio@gmail.com","telefon":"666666666","productes":[{"id":1,"nom":"Entrepà de pernil","preu":2.5,"quantitat":1,"subtotal":2.5},{"id":7,"nom":"Donut","preu":1.2,"quantitat":1,"subtotal":1.2},{"id":8,"nom":"Frankfurt","preu":2.5,"quantitat":1,"subtotal":2.5}],"total":6.2}

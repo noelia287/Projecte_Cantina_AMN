@@ -29,8 +29,8 @@
     }
 }
 
-/* Taula de productes de l'administració */
-.taula-productes {
+/* Taula de l'administració (productes i tiquets) */
+.taula-admin {
     width: 100%;
     border-collapse: collapse;
     background: none;
@@ -69,6 +69,7 @@
         text-decoration: none;
 
         &.editar { background: var(--color-primary); }
+        &.veure { background: var(--color-primary); }
         &.eliminar { background: var(--color-error); }
     }
 }

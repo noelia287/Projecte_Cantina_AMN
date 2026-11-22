@@ -1,0 +1,43 @@
+@use '../abstracts' as *;
+
+/* Pestanyes de l'administració (Productes | Tiquets) */
+.admin__pestanyes {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid $cantina-border;
+
+    a {
+        padding: 0.6rem 1.1rem;
+        color: $cantina-muted;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -1px;
+
+        &:hover {
+            color: $cantina-text;
+        }
+
+        // Pestanya de l'apartat actiu
+        &[aria-current='page'] {
+            color: $cantina-accent;
+            border-bottom-color: $cantina-accent;
+            font-weight: 600;
+        }
+    }
+}
+
+/* Nombre d'elements de cada pestanya */
+.admin__comptador {
+    margin-left: 0.25rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 999px;
+    background: $cantina-border;
+    color: $cantina-text;
+    font-size: 0.8rem;
+}
+
+/* Resum de sobre la taula de tiquets */
+.admin__resum {
+    margin-bottom: 1rem;
+    color: $cantina-muted;
+}

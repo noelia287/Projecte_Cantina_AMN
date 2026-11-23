@@ -1,6 +1,8 @@
 <?php
-// Layout comú. Ús: layout_inici($titol); ...contingut... layout_final();
+// Layout comú.
 
+
+// FUNCIÓ: INICI DEL LAYOUT
 function layout_inici(string $titol = "Projecte Cantina"): void { ?>
 <!DOCTYPE html>
 <html lang="ca" data-theme="dark">
@@ -17,6 +19,8 @@ function layout_inici(string $titol = "Projecte Cantina"): void { ?>
 <?php include __DIR__ . '/header.php';
 }
 
+
+// FUNCIÓ: FINAL DEL LAYOUT
 function layout_final(): void {
     include __DIR__ . '/footer.php'; ?>
 </body>

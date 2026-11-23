@@ -1,41 +1,111 @@
 <?php
-// Funcions dels productes.
 
-// Llegeix el JSON i retorna la llista de productes
+require_once __DIR__ . '/../config/config.php';
+
+
+// FUNCIÓ: LLEGIR ELS PRODUCTES
+// Llegeix el JSON de productes i el retorna com un array de PHP
 function llegir_productes(): array {
-    $fitxer = __DIR__ . '/../data/productes.json';
-    return json_decode(file_get_contents($fitxer), true);
+    $fitxer = fopen(RUTA_PRODUCTES, 'r');
+    $contingut = fread($fitxer, filesize(RUTA_PRODUCTES));
+    fclose($fitxer);
+
+    return json_decode($contingut, true);
 }
 
-// Ofertes del dia: productes disponibles que tenen preu d'oferta
+
+// FUNCIÓ: FRANJA HORÀRIA ACTUAL
+// Retorna la franja de l'hora actual: "esmorzar", "dinar", "berenar" o "" si la cantina està tancada
+function franja_actual(): string {
+
+    // Si s'està provant una franja, es fa servir aquesta
+    if (FRANJA_PROVES != '') {
+        return FRANJA_PROVES;
+    }
+
+    $hora = (int) date('G'); // Hora actual, de 0 a 23
+
+    if ($hora >= HORA_ESMORZAR && $hora < HORA_DINAR) {
+        return 'esmorzar';
+    } elseif ($hora >= HORA_DINAR && $hora < HORA_BERENAR) {
+        return 'dinar';
+    } elseif ($hora >= HORA_BERENAR && $hora < HORA_TANCAMENT) {
+        return 'berenar';
+    } else {
+        return '';
+    }
+}
+
+
+// FUNCIÓ: PRODUCTES DE LA FRANJA
+// Retorna els productes de la franja; si la cantina està tancada (franja buida), els retorna tots
+function productes_franja(string $franja): array {
+    $productes = [];
+
+    foreach (llegir_productes() as $producte) {
+        if ($franja == '' || in_array($franja, $producte['franges'])) {
+            array_push($productes, $producte);
+        }
+    }
+
+    return $productes;
+}
+
+
+// FUNCIÓ: OFERTES DEL DIA
+// Retorna els productes de la franja actual que tenen preu d'oferta i no estan esgotats
 function llegir_ofertes(): array {
-    return array_filter(llegir_productes(), function ($producte) {
-        return $producte['disponible'] && isset($producte['preu_oferta']);
-    });
+    $ofertes = [];
+
+    // Només els que no estan esgotats i tenen preu d'oferta
+    foreach (productes_franja(franja_actual()) as $producte) {
+        if ($producte['unitats'] > 0 && $producte['preu_oferta'] > 0) {
+            array_push($ofertes, $producte);
+        }
+    }
+
+    return $ofertes;
 }
 
-// 2.5 → "2,50 €"
+
+// FUNCIÓ: FORMATAR EL PREU
+// Formata el preu amb "," i dos decimals i el signe de l'euro
 function format_preu(float $preu): string {
     return number_format($preu, 2, ',', '.') . ' €';
 }
 
-// Pinta la targeta d'un producte
-// $amb_carret = true → carret amb quantitat (compra.php)
-// $amb_carret = false → botó "Comprar" que porta a compra.php (index.php)
-function targeta_producte(array $producte, bool $amb_carret = true): void {
-    $oferta = $producte['preu_oferta'] ?? null;
-    $disponible = $producte['disponible'];
-    $id = $producte['id'];
-    ?>
-    <article class="producte<?= $disponible ? '' : ' producte--esgotat' ?>">
 
-        <?php if ($oferta): ?>
-            <span class="producte__etiqueta">Oferta</span>
-        <?php elseif (!$disponible): ?>
-            <span class="producte__etiqueta">Esgotat</span>
-        <?php endif; ?>
+// FUNCIÓ: TARGETA D'UN PRODUCTE
+// Pinta la targeta d'un producte
+function targeta_producte(array $producte, bool $amb_carret = true): void {
+    $oferta = $producte['preu_oferta'];
+    $disponible = $producte['unitats'] > 0;
+    $id = $producte['id'];
+
+    // Preu que es cobra: el d'oferta si en té, sinó el normal
+    $preu_final = $producte['preu'];
+    if ($oferta > 0) {
+        $preu_final = $oferta;
+    }
+
+    // Si està esgotat, la targeta surt apagada i el carret no es pot clicar
+    $classe = 'producte';
+    $desactivat = '';
+
+    if (!$disponible) {
+        $classe = 'producte producte--esgotat';
+        $desactivat = 'disabled';
+    }
+    ?>
+    <article class="<?= $classe ?>">
 
         <img class="producte__imatge" src="../frontend/public/<?= htmlspecialchars($producte['imatge']) ?>" alt="<?= htmlspecialchars($producte['nom']) ?>">
+
+        <?php if (!$disponible): ?>
+            <span class="producte__etiqueta">Esgotat</span>
+        <?php elseif ($oferta > 0): ?>
+            <span class="producte__etiqueta">Oferta</span>
+        <?php endif; ?>
 
         <div class="producte__info">
             <h2 class="producte__nom"><?= htmlspecialchars($producte['nom']) ?></h2>
@@ -43,7 +113,7 @@ function targeta_producte(array $producte, bool $amb_carret = true): void {
 
             <div class="producte__compra">
                 <span class="producte__preu">
-                    <?php if ($oferta): ?>
+                    <?php if ($oferta > 0): ?>
                         <del><?= format_preu($producte['preu']) ?></del>
                         <?= format_preu($oferta) ?>
                     <?php else: ?>
@@ -51,16 +121,15 @@ function targeta_producte(array $producte, bool $amb_carret = true): void {
                     <?php endif; ?>
                 </span>
 
-                <?php if (!$amb_carret): ?>
-                    <a class="producte__boto" href="compra.php">Comprar</a>
-                <?php else: ?>
-                <div class="producte__quantitat">
+                <?php if ($amb_carret): ?>
+                <div class="producte__quantitat" data-unitats="<?= $producte['unitats'] ?>" data-id="<?= $id ?>" data-preu="<?= $preu_final ?>">
+
                     <!-- Botó del carret: es veu mentre la quantitat és 0 -->
-                    <button type="button" class="producte__carret" aria-label="Afegir al carret"<?= $disponible ? '' : ' disabled' ?>>
+                    <button type="button" class="producte__carret" aria-label="Afegir al carret" <?= $desactivat ?>>
                         <i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
                     </button>
 
-                    <!-- Selector - quantitat +: es veu quan la quantitat és 1 o més -->
+                    <!-- Selector "-" quantitat "+": es veu quan la quantitat és 1 o més -->
                     <div class="producte__selector" hidden>
                         <button type="button" class="producte__menys" aria-label="Treure'n un">-</button>
                         <span class="producte__numero">0</span>
@@ -70,10 +139,60 @@ function targeta_producte(array $producte, bool $amb_carret = true): void {
                     <!-- Valor que s'envia amb el formulari -->
                     <input type="hidden" name="quantitats[<?= $id ?>]" value="0">
                 </div>
+                <?php else: ?>
+                    <a class="producte__boto" href="compra.php">Comprar</a>
                 <?php endif; ?>
             </div>
         </div>
 
     </article>
     <?php
+}
+
+// FUNCIÓ: Cerca el producte que busquem entre tots per el seu id
+function buscar_producte(array $productes, int $id): ?array {
+    foreach (llegir_productes() as $producte) {
+        if ((int)$producte['id'] == $id) {
+            return $producte;
+        }
+    }
+    return null;
+}
+
+
+// FUNCIÓ: GUARDAR ELS PRODUCTES
+// Escriu tot el JSON de productes amb el mateix format de sempre (1.0 es queda 1.0)
+// LOCK_EX bloqueja el fitxer mentre s'escriu
+function guardar_productes(array $productes): bool {
+    // Que json_encode escrigui els preus normals (1.2 i no 1.19999...)
+    ini_set('serialize_precision', -1);
+
+    $json = json_encode(array_values($productes), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION) . "\n";
+
+    $guardat = file_put_contents(RUTA_PRODUCTES, $json, LOCK_EX) !== false;
+
+    // PHP guarda la mida del fitxer en memòria; s'esborra perquè la propera lectura vegi la mida nova
+    clearstatcache();
+
+    return $guardat;
+}
+
+
+// FUNCIÓ: ELIMINAR UN PRODUCTE
+// Treu del JSON el producte amb aquest id. Retorna false si no existeix o no s'ha pogut guardar
+function eliminar_producte(int $id): bool {
+    $productes = llegir_productes();
+
+    if (buscar_producte($productes, $id) === null) {
+        return false;
+    }
+
+    $restants = [];
+    foreach ($productes as $producte) {
+        if ($producte['id'] !== $id) {
+            array_push($restants, $producte);
+        }
+    }
+
+    return guardar_productes($restants);
 }

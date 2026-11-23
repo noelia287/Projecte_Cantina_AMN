@@ -1,7 +1,6 @@
 @use '../abstracts' as *;
 
-/* Pàgina de finalització: resum i formulari
-   escriptori dues columnes, tablet i mòbil una columna */
+/* Resum comanda i formulari escriptori 2 columnes, tablet i mòbil 1 columna */
 .finalitzacio {
     display: grid;
     grid-template-columns: 3fr 2fr;
@@ -13,17 +12,17 @@
         gap: 2rem;
     }
 
+    // Perquè la taula es desplaci dins la seva caixa i no faci més ampla la pàgina al mòbil
+    &__resum {
+        min-width: 0;
+    }
+
     &__total {
         display: flex;
         justify-content: space-between;
         margin-top: 1rem;
         font-size: 1.1rem;
         color: $cantina-text;
-    }
-
-    // El formulari ocupa tota la columna
-    #formulari {
-        width: 100%;
     }
 }
 
@@ -59,7 +58,7 @@
     padding: 1.5rem;
     font-family: 'Courier New', monospace;
     background: $cantina-surface;
-    border: 1px dashed $cantina-muted;
+    border: 1px solid $cantina-muted;
     border-radius: 4px;
 
     p {
@@ -72,15 +71,13 @@
         border-top: 1px dashed $cantina-border;
     }
 
-    &-capcalera,
-    &-peu,
-    .text-centre {
+    &-capcalera {
         text-align: center;
-    }
 
-    &-capcalera h2 {
-        border: none;
-        margin: 0;
+        h2 {
+            border: none;
+            margin: 0;
+        }
     }
 }
 

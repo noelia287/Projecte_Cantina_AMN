@@ -4,7 +4,7 @@
         "nom": "Entrepà de pernil",
         "descripcio": "Pa rústic",
         "preu": 2.5,
-        "unitats": 10,
+        "unitats": 9,
         "imatge": "bocata.jpeg",
         "preu_oferta": 0,
         "franges": [
@@ -81,7 +81,7 @@
         "nom": "Donut",
         "descripcio": "Unitat",
         "preu": 1.2,
-        "unitats": 8,
+        "unitats": 7,
         "imatge": "donut.jpeg",
         "preu_oferta": 0,
         "franges": [
@@ -94,7 +94,7 @@
         "nom": "Frankfurt",
         "descripcio": "Pa de frankfurt",
         "preu": 2.5,
-        "unitats": 2,
+        "unitats": 1,
         "imatge": "hotdog.jpeg",
         "preu_oferta": 0,
         "franges": [

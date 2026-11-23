@@ -1,7 +1,10 @@
 @use '../abstracts' as *;
 
-/* Capçalera: el fons ocupa tota l'amplada */
+/* Capçalera: el fons ocupa tota l'amplada i es manté fixa a dalt */
 body > header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     background: $cantina-surface;
     border-bottom: 1px solid $cantina-border;
     box-shadow: $cantina-shadow;

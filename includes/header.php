@@ -1,6 +1,9 @@
 <header>
     <div class="capcalera">
-        <a href="index.php" class="logo"><img src="../frontend/public/logo.png" alt="Logo de la cantina"></a>
+        <a href="index.php" class="logo">
+            <img class="logo-fosc" src="../frontend/public/logo_fosc.png" alt="Logo de la cantina">
+            <img class="logo-clar" src="../frontend/public/logo_clar.png" alt="Logo de la cantina">
+        </a>
         <button id="theme-toggle" class="button theme-toggle" type="button" aria-label="Canviar tema" aria-pressed="false">🌙</button>
         <button class="menu-toggle" type="button" aria-label="Obrir el menú" aria-expanded="false" aria-controls="menu-principal"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
         <nav id="menu-principal">

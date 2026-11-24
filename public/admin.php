@@ -23,6 +23,7 @@
         if (credencials_correctes($_POST['usuari'] ?? '', $_POST['clau'] ?? '')) {
             session_regenerate_id(true);
             $_SESSION['admin'] = true;
+            $_SESSION['ultima_activitat'] = time();
 
             header('Location: admin.php');
             exit;

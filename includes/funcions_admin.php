@@ -302,10 +302,23 @@ function unitats_tiquet(array $tiquet): int {
 }
 
 
-// FUNCIÓ: L'ADMINISTRADOR HA ENTRAT?
-// Retorna true si a la sessió hi ha l'administrador identificat
+// FUNCIÓ: L'ADMINISTRADOR HA ENTRAT? (Caducitat sessió)
+// Retorna true si a la sessió hi ha l'administrador identificat i no ha caducat
 function admin_validat(): bool {
-    return isset($_SESSION['admin']) && $_SESSION['admin'] === true;
+    if (!isset($_SESSION['admin']) || $_SESSION['admin'] !== true) {
+        return false;
+    }
+
+    // Si ha passat massa temps sense activitat, la sessió caduca
+    $inactiu = time() - ($_SESSION['ultima_activitat'] ?? 0);
+    if ($inactiu > ADMIN_CADUCITAT) {
+        unset($_SESSION['admin'], $_SESSION['ultima_activitat']);
+        return false;
+    }
+
+    // Encara és vàlida: es renova el temps
+    $_SESSION['ultima_activitat'] = time();
+    return true;
 }
 
 

@@ -18,4 +18,8 @@ define('FRANJA_PROVES', '');
 define('ADMIN_USUARI', 'admin');
 // Contrasenya guardada amb md5. Per canviar-la: php -r "echo md5('nova');"
 define('ADMIN_CLAU_HASH', 'ee38d22151f4e120bcc50d0cfa81c4f0');
+
+// Temps màxim sense activitat abans de tancar la sessió: 30 minuts (en segons)
+define('ADMIN_CADUCITAT', 30 * 60);
+
 ?>

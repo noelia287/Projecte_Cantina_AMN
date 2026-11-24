@@ -17,7 +17,7 @@
         "nom": "Coca-Cola",
         "descripcio": "Llauna 330 ml",
         "preu": 1.5,
-        "unitats": 29,
+        "unitats": 28,
         "imatge": "cocacola.jpeg",
         "preu_oferta": 1.2,
         "franges": [
@@ -55,7 +55,7 @@
         "nom": "Aigua",
         "descripcio": "Ampolla 500 ml",
         "preu": 1.0,
-        "unitats": 99,
+        "unitats": 100,
         "imatge": "aigua.jpeg",
         "preu_oferta": 0,
         "franges": [
@@ -81,7 +81,7 @@
         "nom": "Donut",
         "descripcio": "Unitat",
         "preu": 1.2,
-        "unitats": 5,
+        "unitats": 7,
         "imatge": "donut.jpeg",
         "preu_oferta": 0,
         "franges": [
@@ -118,7 +118,7 @@
         "nom": "Patates Lay's",
         "descripcio": "Bossa 45 g",
         "preu": 1.2,
-        "unitats": 9,
+        "unitats": 10,
         "imatge": "lays.jpeg",
         "preu_oferta": 0,
         "franges": [

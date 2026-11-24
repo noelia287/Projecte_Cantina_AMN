@@ -16,5 +16,6 @@ define('FRANJA_PROVES', '');
 
 // Accés a l'administració (usuari i contrasenya)
 define('ADMIN_USUARI', 'admin');
-define('ADMIN_CLAU', 'cantina123');
+// Contrasenya guardada amb md5. Per canviar-la: php -r "echo md5('nova');"
+define('ADMIN_CLAU_HASH', 'ee38d22151f4e120bcc50d0cfa81c4f0');
 ?>

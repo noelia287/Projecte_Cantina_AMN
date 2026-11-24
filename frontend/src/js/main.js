@@ -34,8 +34,8 @@ function applyTheme(theme) {
     html.setAttribute("data-theme", theme);
     if (themeButton) {
         themeButton.innerHTML = theme === "dark"
-            ? '<i class="fa-regular fa-sun" style="color: rgb(255, 255, 255);"></i>'
-            : '<i class="fa-regular fa-moon"></i>';
+            ? '<i class="fa-regular fa-sun" aria-hidden="true"></i>'
+            : '<i class="fa-regular fa-moon" aria-hidden="true"></i>';
         themeButton.setAttribute("aria-pressed", theme === "dark" ? "true" : "false");
         themeButton.setAttribute("aria-label", theme === "dark" ? "Canviar a tema clar" : "Canviar a tema fosc");
     }

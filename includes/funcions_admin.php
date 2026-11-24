@@ -49,7 +49,7 @@ function validar_producte(array $dades): string {
         return "El nom és obligatori.";
     }
 
-    if (mb_strlen($dades['nom']) > 60) {
+    if (preg_match_all("/./su", $dades["nom"]) > 60) {
         return "El nom no pot tenir més de 60 caràcters.";
     }
 
@@ -310,7 +310,7 @@ function admin_validat(): bool {
 
 
 // FUNCIÓ: COMPROVAR LES CREDENCIALS
-// Retorna true si l'usuari i la contrasenya coincideixen amb els de config.php
+// Retorna true si l'usuari i la contrasenya coincideixen amb els de config.php (la contrasenya es compara amb el hash)
 function credencials_correctes(string $usuari, string $clau): bool {
-    return $usuari === ADMIN_USUARI && $clau === ADMIN_CLAU;
+    return $usuari === ADMIN_USUARI && md5($clau) === ADMIN_CLAU_HASH;
 }

@@ -1,0 +1,96 @@
+@use '../abstracts' as *;
+
+/* Component Taula */
+.taula {
+    width: 100%;
+
+    th,
+    td {
+        padding: 0.6rem 0.75rem;
+        text-align: left;
+        border-bottom: 1px solid $cantina-border;
+    }
+
+    th {
+        font-weight: 600;
+        color: $cantina-muted;
+    }
+
+    // Les columnes numèriques (totes menys la primera) alineades a la dreta
+    th:not(:first-child),
+    td:not(:first-child) {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    // Si no hi cap en pantalles petites, es pot desplaçar horitzontalment
+    &-scroll {
+        overflow-x: auto;
+    }
+}
+
+/* Taula de l'administració (productes i tiquets) */
+.taula-admin {
+    width: 100%;
+    border-collapse: collapse;
+    background: none;
+
+    th, td {
+        padding: 10px;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    th {
+        background: var(--gradient-card-title);
+        color: var(--color-text-dark);
+    }
+
+    img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border-radius: 6px;
+        display: block;
+    }
+
+    .accions {
+        white-space: nowrap;
+
+        // El formulari d'eliminar es queda al costat del botó d'editar
+        form { display: inline; }
+    }
+
+    .btn-accio {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 6px;
+        color: var(--color-white);
+        text-decoration: none;
+
+        &.editar { background: var(--color-primary); }
+        &.veure { background: var(--color-primary); }
+        &.eliminar { background: var(--color-error); }
+    }
+}
+
+/* Capçalera de l'administració: títol i botó d'afegir producte */
+.admin__capcalera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.admin__afegir {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background: $cantina-accent;
+    color: #fff;
+    white-space: nowrap;
+
+    &:hover {
+        background: $cantina-accent-hover;
+    }
+}

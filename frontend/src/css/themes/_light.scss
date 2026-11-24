@@ -1,0 +1,41 @@
+/* Tema clar: valors per defecte */
+:root {
+    color-scheme: light;
+    // Cantina
+    --cantina-bg: #fcfcfc;
+    --cantina-surface: #ffffff;
+    --cantina-text: #363d40;
+    --cantina-muted: #666565;
+    --cantina-accent: #f07a3e;
+    --cantina-accent-hover: #d9682f;
+    --cantina-border: #e0e1e1;
+    --cantina-shadow-color: rgba(0, 0, 0, 0.12);
+
+    // Generals
+    --color-primary: #ec8a1b;
+    --color-text: #9a9b9c;
+    --color-text-dark: #666565;
+    --color-title: #363d40;
+    --color-white: #fff;
+    --color-lead: #bcbcbc;
+    --color-card-title: #7e7e7e;
+    --color-btn-text: #787878;
+    --color-nav-active-border: #675f55;
+    --color-error: #c0392b;
+    --color-required: red;
+
+    // Bordes
+    --border-color: #e0e1e1;
+    --card-border-color: #e1e0e0;
+    --input-border-color: #c6c6c6;
+    --btn-border-top-color: #d1d1d1;
+    --footer-border-color: #bebebe;
+
+    // Fons
+    --bg-color: #fcfcfc;
+    --gradient-body: linear-gradient(#e4e4e4, #fcfcfc);
+    --gradient-btn: linear-gradient(#e9e8e8, #d4d4d4);
+    --gradient-card-title: linear-gradient(#eeeeee, #eaeaea);
+    --gradient-nav-active: linear-gradient(#f4d0a7 0%, #f3ad5e 50%, #f0a24a 50%, #efa047 100%);
+    --card-shadow-color: rgba(197, 196, 196, 0.47);
+}

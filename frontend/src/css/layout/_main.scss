@@ -1,0 +1,24 @@
+@use '../abstracts' as *;
+
+/* Estructura de la pàgina: capçalera, contingut i peu (el peu sempre a baix) */
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+}
+
+/* Contingut principal centrat */
+main {
+    width: 100%;
+    max-width: $cantina-max-width;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+
+    h1 {
+        margin-bottom: 1.5rem;
+    }
+
+    @media (max-width: $bp-mobile) {
+        padding: 1.5rem 1rem;
+    }
+}

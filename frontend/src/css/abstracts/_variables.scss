@@ -1,0 +1,26 @@
+// Colors de la cantina (el valor canvia segons el tema clar o fosc)
+$cantina-bg: var(--cantina-bg); // fons de la pàgina
+$cantina-surface: var(--cantina-surface); // fons de la capçalera, targetes i tiquet
+$cantina-text: var(--cantina-text); // text principal
+$cantina-muted: var(--cantina-muted); // text secundari i menú
+$cantina-accent: var(--cantina-accent); // taronja: botons i preus
+$cantina-accent-hover: var(--cantina-accent-hover); // taronja una mica més fosc
+$cantina-border: var(--cantina-border); // vores i línies
+
+// Colors generals
+$color-primary: var(--color-primary); // taronja dels títols h2 i enllaços
+$color-text: var(--color-text); // text del peu de pàgina
+$color-error: var(--color-error); // missatges d'error
+$color-required: var(--color-required); // asterisc dels camps obligatoris
+$input-border-color: var(--input-border-color); // vora dels camps del formulari
+
+// Mides de la cantina
+$cantina-shadow: 0 4px 20px var(--cantina-shadow-color);
+$cantina-max-width: 1200px;
+
+// Tipografia
+$font-title: 'Century Gothic', 'Questrial', sans-serif;
+
+// Breakpoints
+$bp-tablet: 991px;
+$bp-mobile: 767px;

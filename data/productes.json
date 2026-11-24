@@ -1,0 +1,128 @@
+[
+    {
+        "id": 1,
+        "nom": "Entrepà de pernil",
+        "descripcio": "Pa rústic",
+        "preu": 2.5,
+        "unitats": 9,
+        "imatge": "bocata.jpeg",
+        "preu_oferta": 0,
+        "franges": [
+            "esmorzar",
+            "dinar"
+        ]
+    },
+    {
+        "id": 2,
+        "nom": "Coca-Cola",
+        "descripcio": "Llauna 330 ml",
+        "preu": 1.5,
+        "unitats": 29,
+        "imatge": "cocacola.jpeg",
+        "preu_oferta": 1.2,
+        "franges": [
+            "esmorzar",
+            "dinar",
+            "berenar"
+        ]
+    },
+    {
+        "id": 3,
+        "nom": "Porció de pizza",
+        "descripcio": "Porció",
+        "preu": 2.2,
+        "unitats": 0,
+        "imatge": "pizza.jpeg",
+        "preu_oferta": 0,
+        "franges": [
+            "dinar"
+        ]
+    },
+    {
+        "id": 4,
+        "nom": "Cafè amb llet",
+        "descripcio": "Tassa",
+        "preu": 1.3,
+        "unitats": 40,
+        "imatge": "cafe.jpeg",
+        "preu_oferta": 1.0,
+        "franges": [
+            "esmorzar"
+        ]
+    },
+    {
+        "id": 5,
+        "nom": "Aigua",
+        "descripcio": "Ampolla 500 ml",
+        "preu": 1.0,
+        "unitats": 99,
+        "imatge": "aigua.jpeg",
+        "preu_oferta": 0,
+        "franges": [
+            "esmorzar",
+            "dinar",
+            "berenar"
+        ]
+    },
+    {
+        "id": 6,
+        "nom": "Croissant",
+        "descripcio": "Unitat",
+        "preu": 1.2,
+        "unitats": 4,
+        "imatge": "croissant.jpeg",
+        "preu_oferta": 0,
+        "franges": [
+            "esmorzar"
+        ]
+    },
+    {
+        "id": 7,
+        "nom": "Donut",
+        "descripcio": "Unitat",
+        "preu": 1.2,
+        "unitats": 5,
+        "imatge": "donut.jpeg",
+        "preu_oferta": 0,
+        "franges": [
+            "esmorzar",
+            "berenar"
+        ]
+    },
+    {
+        "id": 8,
+        "nom": "Frankfurt",
+        "descripcio": "Pa de frankfurt",
+        "preu": 2.5,
+        "unitats": 1,
+        "imatge": "hotdog.jpeg",
+        "preu_oferta": 0,
+        "franges": [
+            "dinar"
+        ]
+    },
+    {
+        "id": 9,
+        "nom": "KitKat",
+        "descripcio": "Barreta 41,5 g",
+        "preu": 1.2,
+        "unitats": 0,
+        "imatge": "kitkat.jpeg",
+        "preu_oferta": 0,
+        "franges": [
+            "berenar"
+        ]
+    },
+    {
+        "id": 10,
+        "nom": "Patates Lay's",
+        "descripcio": "Bossa 45 g",
+        "preu": 1.2,
+        "unitats": 9,
+        "imatge": "lays.jpeg",
+        "preu_oferta": 0,
+        "franges": [
+            "berenar"
+        ]
+    }
+]

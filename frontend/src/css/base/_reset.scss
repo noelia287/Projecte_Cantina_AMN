@@ -1,0 +1,50 @@
+/* Elimina els estils propis de cada navegador perquè la web es vegi igual sempre*/
+
+/* Sense marges per defecte, i les mides inclouen padding i border */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Imatges: mai més amples que el contenidor */
+img {
+    display: block;
+    max-width: 100%;
+}
+
+/* Llistes sense punts */
+ul {
+    list-style: none;
+}
+
+/* Enllaços sense subratllat i amb el color del text */
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Botons i camps agafen la font de la pàgina */
+button,
+input {
+    font: inherit;
+}
+
+/* Botons sense l'estil del navegador */
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Taules sense espai entre cel·les */
+table {
+    border-collapse: collapse;
+}
+
+/* Les paraules llargues (com un email) no surten de la caixa */
+h1,
+h2,
+p {
+    overflow-wrap: break-word;
+}

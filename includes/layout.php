@@ -1,0 +1,28 @@
+<?php
+// Layout comú.
+
+
+// FUNCIÓ: INICI DEL LAYOUT
+function layout_inici(string $titol = "Projecte Cantina"): void { ?>
+<!DOCTYPE html>
+<html lang="ca" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?= htmlspecialchars($titol) ?></title>
+    <script type="module" src="http://localhost:5173/@vite/client"></script>
+    <script type="module" src="http://localhost:5173/src/js/main.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/png" href="../frontend/public/logo.png">
+</head>
+<body>
+<?php include __DIR__ . '/header.php';
+}
+
+
+// FUNCIÓ: FINAL DEL LAYOUT
+function layout_final(): void {
+    include __DIR__ . '/footer.php'; ?>
+</body>
+</html>
+<?php }

@@ -1,0 +1,75 @@
+@use 'abstracts' as *;
+@use 'base' as *;
+@use 'components' as *;
+@use 'layout' as *;
+@use 'pages' as *;
+@use 'themes' as *;
+@use 'vendors' as *;
+
+/* Estils generals */
+body {
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: $cantina-text;
+    background: $cantina-bg;
+}
+
+/* Formulari */
+label {
+    display: block;
+    color: $cantina-text;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+label span {
+    color: $color-required;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid $input-border-color;
+    color: $cantina-text;
+    background: $cantina-surface;
+    border-radius: 5px;
+}
+
+.error {
+    color: $color-error;
+    font-size: 0.85rem;
+    margin: 0.35rem 0 0;
+}
+
+.error:empty {
+    display: none;
+}
+
+form button {
+    margin-top: 20px;
+    margin-right: 10px;
+    padding: 0.65rem 1.25rem;
+    color: $cantina-text;
+    background: $cantina-accent;
+    border: none;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+        background: $cantina-accent-hover;
+    }
+}
+
+/* Botons secundaris (com "Reseteja"): gris, perquè es vegi quin és el principal */
+form button[type="button"],
+form button[type="reset"] {
+    background: $cantina-surface;
+    border: 1px solid $cantina-border;
+
+    &:hover {
+        background: $cantina-border;
+    }
+}

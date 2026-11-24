@@ -1,0 +1,126 @@
+/* Wireframes de la Cantina: com s'organitzen els blocs a cada media query */
+
+body {
+    margin: 0;
+    padding: 24px;
+    font-family: Arial, sans-serif;
+    color: #333;
+    background: #f2f2f2;
+}
+
+h1 {
+    margin: 0 0 4px;
+}
+
+.llegenda {
+    margin: 0 0 24px;
+    color: #666;
+}
+
+/* Totes les pàgines d'una media query, una al costat de l'altra */
+.pagines {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 32px;
+}
+
+.pagina h2 {
+    margin: 0 0 8px;
+    font-size: 16px;
+}
+
+/* Pantalla: l'amplada canvia segons la media query (classe del body) */
+.pantalla {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 640px;
+    padding: 8px;
+    background: #fff;
+    border: 2px solid #333;
+}
+
+.tablet .pantalla {
+    width: 420px;
+}
+
+.mobil .pantalla {
+    width: 220px;
+}
+
+/* Caixa: un bloc de la pàgina */
+.caixa {
+    padding: 6px;
+    font-size: 12px;
+    text-align: center;
+    background: #e6e6e6;
+    border: 2px dashed #999;
+}
+
+.boto {
+    background: #c8c8c8;
+    border-style: solid;
+}
+
+.alta {
+    padding: 28px 6px;
+}
+
+/* Fila: blocs un al costat de l'altre (flexbox) */
+.fila {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.espai {
+    margin-left: auto;
+}
+
+/* Graella: columnes de targetes o de blocs (grid) */
+.graella {
+    display: grid;
+    grid-template-columns: repeat(var(--columnes), 1fr);
+    gap: 6px;
+}
+
+/* Finalització a escriptori: resum més ample que el formulari */
+.dues-columnes {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 8px;
+    align-items: start;
+}
+
+.columna {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* Tiquet en viu: a la dreta, o tota l'amplada al mòbil */
+.tiquet {
+    width: 40%;
+    margin-left: auto;
+}
+
+.mobil .tiquet {
+    width: auto;
+    margin-left: 0;
+}
+
+/* Tiquet final: centrat */
+.centrat {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.mobil .centrat {
+    width: auto;
+    margin: 0;
+}
+
+.ple {
+    flex: 1;
+}
